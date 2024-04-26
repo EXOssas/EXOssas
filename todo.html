@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,7 +79,7 @@
 <body>
   <div class="todo-container">
     <h1>To-Do List</h1>
-    <input type="text" id="todo-input" placeholder="Add new item">
+    <input type="text" id="todo-input" placeholder="Add new item" onkeypress="addOnEnter(event)">
     <button onclick="addItem()">Add</button>
     <ul id="todo-list"></ul>
   </div>
@@ -99,6 +100,22 @@
 
     function toggleItem() {
       this.classList.toggle("completed");
+      var ul = document.getElementById("todo-list");
+      var items = ul.getElementsByTagName("li");
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.classList.contains("completed")) {
+          ul.appendChild(item); // Sposta l'elemento in fondo alla lista
+        } else {
+          ul.insertBefore(item, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
+        }
+      }
+    }
+
+    function addOnEnter(event) {
+      if (event.keyCode === 13) {
+        addItem();
+      }
     }
   </script>
 </body>
