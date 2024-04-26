@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: rgb(44, 44, 44);
+      color: rgb(200, 200, 200);
+    }
+
+    .todo-container {
+      max-width: 400px;
+      margin: 50px auto;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: rgb(44, 44, 44);
+      color: rgb(200, 200, 200);
+      border: 1px solid rgb(200, 200, 200);
+    }
+
+    input[type="text"]::placeholder {
+      color: rgb(120, 120, 120);
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #2e7d32; /* Verde scuro */
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005005; /* Verde più scuro al passaggio del mouse */
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: rgb(64, 64, 64); /* Sfondo grigio scuro per gli elementi */
+      border-radius: 5px; /* Bordi arrotondati */
+      transition: background-color 0.3s ease; /* Transizione per il cambio di sfondo */
+    }
+
+    li:hover {
+      background-color: rgb(84, 84, 84); /* Sfondo più scuro al passaggio del mouse */
+    }
+
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.5; /* Riduce leggermente l'opacità degli elementi completati */
+      transition: opacity 0.3s ease; /* Transizione per l'opacità */
+      animation: shake 0.5s; /* Animazione shake */
+      animation-iteration-count: 1;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>To-Do List</h1>
+    <input type="text" id="todo-input" placeholder="Add new item" onkeypress="addOnEnter(event)">
+    <button onclick="addItem()">Add</button>
+    <ul id="todo-list"></ul>
+  </div>
+  <script>
+    function addItem() {
+      var input = document.getElementById("todo-input").value;
+      if (input === '') {
+        alert("Please enter a task!");
+        return;
+      }
+      var ul = document.getElementById("todo-list");
+      var li = document.createElement("li");
+      li.appendChild(document.createTextNode(input));
+      ul.insertBefore(li, ul.childNodes[0]); // Inserisci l'elemento in cima alla lista
+      document.getElementById("todo-input").value = "";
+      li.addEventListener("click", toggleItem);
+    }
+
+    function toggleItem() {
+      this.classList.toggle("completed");
+      var ul = document.getElementById("todo-list");
+      var items = ul.getElementsByTagName("li");
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        if (item.classList.contains("completed")) {
+          ul.insertBefore(item, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
+        }
+      }
+    }
+
+    function addOnEnter(event) {
+      if (event.keyCode === 13) {
+        addItem();
+      }
+    }
+  </script>
+</body>
+</html>
