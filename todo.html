@@ -1,11 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-
-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To-Do List</title>
   <style>
     body {
@@ -86,6 +83,20 @@ scale=1.0, user-scalable=no">
     <ul id="todo-list"></ul>
   </div>
   <script>
+    // Funzione per caricare gli elementi dalla memoria
+    function loadItems() {
+      var items = JSON.parse(localStorage.getItem('todoItems')) || [];
+      var ul = document.getElementById("todo-list");
+      ul.innerHTML = '';
+      items.forEach(function(itemText) {
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(itemText));
+        ul.insertBefore(li, ul.childNodes[0]); // Inserisci l'elemento in cima alla lista
+        li.addEventListener("click", toggleItem);
+      });
+    }
+
+    // Funzione per aggiungere un elemento
     function addItem() {
       var input = document.getElementById("todo-input").value;
       if (input === '') {
@@ -98,22 +109,31 @@ scale=1.0, user-scalable=no">
       ul.insertBefore(li, ul.childNodes[0]); // Inserisci l'elemento in cima alla lista
       document.getElementById("todo-input").value = "";
       li.addEventListener("click", toggleItem);
+      saveItems(); // Salva gli elementi nella memoria
     }
 
+    // Funzione per segnare un elemento come completato
     function toggleItem() {
       this.classList.toggle("completed");
-      var ul = document.getElementById("todo-list");
-      var items = ul.getElementsByTagName("li");
-      for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        if (item.classList.contains("completed")) {
-          ul.appendChild(item); // Sposta l'elemento in fondo alla lista
-        } else {
-          ul.insertBefore(item, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
-        }
-      }
+      saveItems(); // Salva gli elementi nella memoria
     }
 
+    // Funzione per salvare gli elementi nella memoria
+    function saveItems() {
+      var ul = document.getElementById("todo-list");
+      var items = [];
+      for (var i = 0; i < ul.children.length; i++) {
+        items.push(ul.children[i].textContent);
+      }
+           localStorage.setItem('todoItems', JSON.stringify(items));
+    }
+
+    // Carica gli elementi al caricamento della pagina
+    window.onload = function() {
+      loadItems();
+    };
+
+    // Funzione per aggiungere un elemento premendo il tasto "Invio"
     function addOnEnter(event) {
       if (event.keyCode === 13) {
         addItem();
