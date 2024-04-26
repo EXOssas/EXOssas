@@ -112,9 +112,16 @@
       saveItems(); // Salva gli elementi nella memoria
     }
 
-    // Funzione per segnare un elemento come completato
+    // Funzione per spostare l'elemento selezionato in basso e poi in alto quando viene riselezionato
     function toggleItem() {
-      this.classList.toggle("completed");
+      var ul = document.getElementById("todo-list");
+      var selectedItem = this;
+      if (selectedItem.classList.contains("completed")) {
+        ul.appendChild(selectedItem); // Sposta l'elemento in fondo alla lista
+      } else {
+        ul.insertBefore(selectedItem, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
+      }
+      selectedItem.classList.toggle("completed");
       saveItems(); // Salva gli elementi nella memoria
     }
 
@@ -125,7 +132,7 @@
       for (var i = 0; i < ul.children.length; i++) {
         items.push(ul.children[i].textContent);
       }
-           localStorage.setItem('todoItems', JSON.stringify(items));
+      localStorage.setItem('todoItems', JSON.stringify(items));
     }
 
     // Carica gli elementi al caricamento della pagina
