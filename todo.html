@@ -6,97 +6,109 @@
   <title>To-Do List</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: rgb(44, 44, 44);
-      color: rgb(200, 200, 200);
-    }
+  font-family: Arial, sans-serif;
+  background-color: rgb(44, 44, 44);
+  color: rgb(200, 200, 200);
+}
 
-    .todo-container {
-      max-width: 400px;
-      margin: 50px auto;
-    }
+.todo-container {
+  max-width: 400px;
+  margin: 50px auto;
+}
 
-    input[type="text"] {
-      width: 70%;
-      padding: 10px;
-      margin-bottom: 10px;
-      background-color: rgb(44, 44, 44);
-      color: rgb(200, 200, 200);
-      border: 1px solid rgb(200, 200, 200);
-    }
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(44, 44, 44);
+  color: rgb(200, 200, 200);
+  border: 1px solid rgb(200, 200, 200);
+}
 
-    input[type="text"]::placeholder {
-      color: rgb(120, 120, 120);
-    }
+input[type="text"]::placeholder {
+  color: rgb(120, 120, 120);
+}
 
-    button {
-      padding: 10px 20px;
-      background-color: #2e7d32; /* Verde scuro */
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
+button {
+  padding: 10px 20px;
+  background-color: #2e7d32; /* Verde scuro */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
-    button:hover {
-      background-color: #005005; /* Verde più scuro al passaggio del mouse */
-    }
+button:hover {
+  background-color: #005005; /* Verde più scuro al passaggio del mouse */
+}
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-    li {
-      position: relative;
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: rgb(64, 64, 64); /* Sfondo grigio scuro per gli elementi */
-      border-radius: 5px; /* Bordi arrotondati */
-      transition: background-color 0.3s ease; /* Transizione per il cambio di sfondo */
-    }
+li {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: rgb(64, 64, 64); /* Sfondo grigio scuro per gli elementi */
+  border-radius: 5px; /* Bordi arrotondati */
+  transition: background-color 0.3s ease; /* Transizione per il cambio di sfondo */
+}
 
-    li:hover {
-      background-color: rgb(84, 84, 84); /* Sfondo più scuro al passaggio del mouse */
-    }
+li:hover {
+  background-color: rgb(84, 84, 84); /* Sfondo più scuro al passaggio del mouse */
+}
 
-    .completed {
-      text-decoration: line-through;
-      opacity: 0.5; /* Riduce leggermente l'opacità degli elementi completati */
-      transition: opacity 0.3s ease; /* Transizione per l'opacità */
-      animation: shake 0.5s; /* Animazione shake */
-      animation-iteration-count: 1;
-    }
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5; /* Riduce leggermente l'opacità degli elementi completati */
+  transition: opacity 0.3s ease; /* Transizione per l'opacità */
+  animation: shake 0.5s; /* Animazione shake */
+  animation-iteration-count: 1;
+}
 
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(0); }
-    }
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
 
-    .delete-button {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      background-color: #d32f2f; /* Colore rosso */
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+/* Animazione per lo slideOutLeft */
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
 
-    .delete-button:hover {
-      background-color: #b71c1c; /* Tonalità più scura di rosso al passaggio del mouse */
-    }
+/* Stile per il pulsante "Delete" */
+.delete-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: #d32f2f; /* Colore rosso */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-    li:hover .delete-button {
-      opacity: 1; /* Mostra il pulsante di eliminazione al passaggio del mouse */
-    }
+.delete-button:hover {
+  background-color: #b71c1c; /* Tonalità più scura di rosso al passaggio del mouse */
+}
+
+li:hover .delete-button {
+  opacity: 1; /* Mostra il pulsante di eliminazione al passaggio del mouse */
+}
   </style>
 </head>
 <body>
@@ -107,77 +119,81 @@
     <ul id="todo-list"></ul>
   </div>
   <script>
-    // Funzione per caricare gli elementi dalla memoria
-    function loadItems() {
-      var items = JSON.parse(localStorage.getItem('todoItems')) || [];
-      var ul = document.getElementById("todo-list");
-      ul.innerHTML = '';
-      items.forEach(function(itemText) {
-        var li = document.createElement("li");
-        li.appendChild(document.createTextNode(itemText));
-        ul.appendChild(li); // Inserisci l'elemento alla fine della lista
-        li.addEventListener("click", toggleItem);
+   // Funzione per caricare gli elementi dalla memoria
+function loadItems() {
+  var items = JSON.parse(localStorage.getItem('todoItems')) || [];
+  var ul = document.getElementById("todo-list");
+  ul.innerHTML = '';
+  items.forEach(function(itemText) {
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(itemText));
+    ul.appendChild(li); // Inserisci l'elemento alla fine della lista
+    li.addEventListener("click", toggleItem);
 
-        var deleteButton = document.createElement("button");
-        deleteButton.innerHTML = "Delete";
-        deleteButton.className = "delete-button";
-        deleteButton.onclick = function() {
-          ul.removeChild(li);
-          saveItems(); // Salva gli elementi nella memoria dopo la rimozione
-        };
-        li.appendChild(deleteButton);
-      });
-    }
-
-    // Funzione per aggiungere un elemento
-    function addItem() {
-      var input = document.getElementById("todo-input").value;
-      if (input === '') {
-        alert("Please enter a task!");
-        return;
-      }
-      var ul = document.getElementById("todo-list");
-      var li = document.createElement("li");
-      li.appendChild(document.createTextNode(input));
-      ul.insertBefore(li, ul.childNodes[0]); // Inserisci l'elemento in cima alla lista
-      document.getElementById("todo-input").value = "";
-      li.addEventListener("click", toggleItem);
-      saveItems(); // Salva gli elementi nella memoria
-    }
-
-    // Funzione per spostare l'elemento selezionato in cima alla lista e poi in basso quando viene deselezionato
-    function toggleItem() {
-      var ul = document.getElementById("todo-list");
-      var selectedItem = this;
-      if (!selectedItem.classList.contains("completed")) {
-        ul.appendChild(selectedItem); // Sposta l'elemento in basso della lista
-      } else {
-        ul.insertBefore(selectedItem, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
-      }
-      selectedItem.classList.toggle("completed");
-      saveItems(); // Salva gli elementi nella memoria
-    }
-
-    // Funzione per salvare gli elementi nella memoria
-    function saveItems() {
-      var ul = document.getElementById("todo-list");
-      var items = [];
-      for (var i = 0; i < ul.children.length; i++) {
-        items.push(ul.children[i].textContent);
-      }
-      localStorage.setItem('todoItems', JSON.stringify(items));
-    }
-        // Carica gli elementi al caricamento della pagina
-    window.onload = function() {
-      loadItems();
+    var deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.className = "delete-button";
+    deleteButton.onclick = function() {
+      li.style.animation = "slideOutLeft 0.5s forwards"; // Animazione verso sinistra
+      setTimeout(function() {
+        ul.removeChild(li);
+        saveItems(); // Salva gli elementi nella memoria dopo la rimozione
+      }, 500); // Attesa prima della rimozione
     };
+    li.appendChild(deleteButton);
+  });
+}
 
-    // Funzione per aggiungere un elemento premendo il tasto "Invio"
-    function addOnEnter(event) {
-      if (event.keyCode === 13) {
-        addItem();
-      }
-    }
+// Funzione per aggiungere un elemento
+function addItem() {
+  var input = document.getElementById("todo-input").value;
+  if (input === '') {
+    alert("Please enter a task!");
+    return;
+  }
+  var ul = document.getElementById("todo-list");
+  var li = document.createElement("li");
+  li.appendChild(document.createTextNode(input));
+  ul.insertBefore(li, ul.childNodes[0]); // Inserisci l'elemento in cima alla lista
+  document.getElementById("todo-input").value = "";
+  li.addEventListener("click", toggleItem);
+  saveItems(); // Salva gli elementi nella memoria
+}
+
+// Funzione per spostare l'elemento selezionato in cima alla lista e poi in basso quando viene deselezionato
+function toggleItem() {
+  var ul = document.getElementById("todo-list");
+  var selectedItem = this;
+  if (!selectedItem.classList.contains("completed")) {
+    ul.appendChild(selectedItem); // Sposta l'elemento in basso della lista
+  } else {
+    ul.insertBefore(selectedItem, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
+  }
+  selectedItem.classList.toggle("completed");
+  saveItems(); // Salva gli elementi nella memoria
+}
+
+// Funzione per salvare gli elementi nella memoria
+function saveItems() {
+  var ul = document.getElementById("todo-list");
+  var items = [];
+  for (var i = 0; i < ul.children.length; i++) {
+    items.push(ul.children[i].textContent);
+  }
+  localStorage.setItem('todoItems', JSON.stringify(items));
+}
+
+// Carica gli elementi al caricamento della pagina
+window.onload = function() {
+  loadItems();
+};
+
+// Funzione per aggiungere un elemento premendo il tasto "Invio"
+function addOnEnter(event) {
+  if (event.keyCode === 13) {
+    addItem();
+  }
+}
   </script>
 </body>
 </html>
