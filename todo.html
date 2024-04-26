@@ -47,6 +47,7 @@
     }
 
     li {
+      position: relative;
       margin-bottom: 10px;
       padding: 10px;
       background-color: rgb(64, 64, 64); /* Sfondo grigio scuro per gli elementi */
@@ -73,6 +74,29 @@
       75% { transform: translateX(-5px); }
       100% { transform: translateX(0); }
     }
+
+    .delete-button {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background-color: #d32f2f; /* Colore rosso */
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .delete-button:hover {
+      background-color: #b71c1c; /* Tonalità più scura di rosso al passaggio del mouse */
+    }
+
+    li:hover .delete-button {
+      opacity: 1; /* Mostra il pulsante di eliminazione al passaggio del mouse */
+    }
   </style>
 </head>
 <body>
@@ -91,8 +115,17 @@
       items.forEach(function(itemText) {
         var li = document.createElement("li");
         li.appendChild(document.createTextNode(itemText));
-        ul.insertBefore(li, ul.childNodes[0]); // Inserisci l'elemento in cima alla lista
+        ul.appendChild(li); // Inserisci l'elemento alla fine della lista
         li.addEventListener("click", toggleItem);
+
+        var deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "Delete";
+        deleteButton.className = "delete-button";
+        deleteButton.onclick = function() {
+          ul.removeChild(li);
+          saveItems(); // Salva gli elementi nella memoria dopo la rimozione
+        };
+        li.appendChild(deleteButton);
       });
     }
 
@@ -112,18 +145,18 @@
       saveItems(); // Salva gli elementi nella memoria
     }
 
-   // Funzione per spostare l'elemento selezionato in cima alla lista e poi in basso quando viene deselezionato
-function toggleItem() {
-  var ul = document.getElementById("todo-list");
-  var selectedItem = this;
-  if (!selectedItem.classList.contains("completed")) {
-    ul.appendChild(selectedItem); // Sposta l'elemento in basso della lista
-  } else {
-    ul.insertBefore(selectedItem, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
-  }
-  selectedItem.classList.toggle("completed");
-  saveItems(); // Salva gli elementi nella memoria
-}
+    // Funzione per spostare l'elemento selezionato in cima alla lista e poi in basso quando viene deselezionato
+    function toggleItem() {
+      var ul = document.getElementById("todo-list");
+      var selectedItem = this;
+      if (!selectedItem.classList.contains("completed")) {
+        ul.appendChild(selectedItem); // Sposta l'elemento in basso della lista
+      } else {
+        ul.insertBefore(selectedItem, ul.childNodes[0]); // Sposta l'elemento in cima alla lista
+      }
+      selectedItem.classList.toggle("completed");
+      saveItems(); // Salva gli elementi nella memoria
+    }
 
     // Funzione per salvare gli elementi nella memoria
     function saveItems() {
@@ -134,8 +167,7 @@ function toggleItem() {
       }
       localStorage.setItem('todoItems', JSON.stringify(items));
     }
-
-    // Carica gli elementi al caricamento della pagina
+        // Carica gli elementi al caricamento della pagina
     window.onload = function() {
       loadItems();
     };
