@@ -1,0 +1,72 @@
+<html lang="it">
+<head>
+    <title>Calcola la tua media!</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://www.giuntiscuola.it/media/filer_public_thumbnails/matematica-e-studenti-italiani-tutto-da-rifare-main__748x0_q85_crop_subsampling-2.jpg"/>
+    <meta name="keywords" content="cirillo">
+    <meta name="description" content="Calcola la tua media con vari pesi dei voti">
+    <meta name="author" content="Ossas">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+            integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/media.css">
+    <script src="js/media.js"></script>
+</head>
+<body>
+    <!-- body -->
+    <div class="main">
+        <h3>Calcola la tua media, potendo mettere pure i vari pesi dei voti!</h3>
+        <div class="input">
+            <select id="voto">
+                <option value="10">10</option>
+                <option value="9.75">10-</option>
+                <option value="9.5">9.5</option>
+                <option value="9.25">9+</option>
+                <option value="9">9</option>
+                <option value="8.75">9-</option>
+                <option value="8.5">8.5</option>
+                <option value="8.25">8+</option>
+                <option value="8">8</option>
+                <option value="7.75">8-</option>
+                <option value="7.5">7.5</option>
+                <option value="7.25">7+</option>
+                <option value="7">7</option>
+                <option value="6.75">7-</option>
+                <option value="6.5">6.5</option>
+                <option value="6.25">6+</option>
+                <option value="6">6</option>
+                <option value="5.75">6-</option>
+                <option value="5.5">5.5</option>
+                <option value="5.25">5+</option>
+                <option value="5">5</option>
+                <option value="4.75">5-</option>
+                <option value="4.5">4.5</option>
+                <option value="4.25">4+</option>
+                <option value="4">4</option>
+                <option value="3.75">4-</option>
+                <option value="3.5">3.5</option>
+                <option value="3.25">3+</option>
+                <option value="3">3</option>
+                <option value="2.75">3-</option>
+                <option value="2.5">2.5</option>
+                <option value="2.25">2+</option>
+                <option value="2">2</option>
+            </select>            
+            <input type="text" placeholder="100% cirillo gay" value="100" id="peso">
+            <button onclick="add()">Add Vote</button>
+            <button onclick="calc()">Calcola la media</button>
+            <ul id="media">
+                <li>Qui vedrai i voti inseriti e i pesi: </li>
+            </ul>
+            <h1 id="mediaf" style="margin-left: -100px;"></h1>
+            <button onclick="refresh()">Reset</button>
+        </div>
+    </div>
+    <!-- footer -->
+    <footer>
+        <h4>&copy; 2024 WebSite - All Rights Reserved - Ossas</h4>
+    </footer>
+</body>
+</html>
