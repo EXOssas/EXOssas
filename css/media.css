@@ -38,7 +38,8 @@
         margin-inline: 15%;
         row-gap: 20px;
     }
-    footer{
+    footer{ 
+        position: static;
         padding-block: 5px;
         width: 100%;
         text-align: center;
