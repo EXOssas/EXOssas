@@ -1,18 +1,20 @@
-var i=0;
+
+var i = 0;
 var subjects = [];
-//aggiungi i voti
-function add(subjectIndex){
+
+function add(subjectIndex) {
     var removeButton = document.createElement("button");
     var voto = parseFloat(document.getElementById("voto-" + subjectIndex).value);
     var peso = parseFloat(document.getElementById("peso-" + subjectIndex).value);
 
-    // Add the grade and weight to the appropriate subject
+    if (peso < 1 || peso > 100) {
+        alert("Il peso deve andare da 1 a 100 coglione !");
+        return;
+    }
+
     subjects[subjectIndex].voti.push(voto);
     subjects[subjectIndex].pesi.push(peso);
-    if(peso<1||peso>100){
-        alert("Il peso deve andare da 1 a 100 coglione !");
-        location.reload();
-    }
+
     var ul = document.getElementById("media-" + (subjectIndex));
     var li = document.createElement("li");
     li.textContent = voto + " (" + peso + "%)";
@@ -23,72 +25,80 @@ function add(subjectIndex){
         subjects[subjectIndex].voti.splice(index, 1);
         subjects[subjectIndex].pesi.splice(index, 1);
         ul.removeChild(li);
+        saveToLocalStorage();
     };
+
     ul.appendChild(li);
     li.appendChild(removeButton);
-    saveData();
+    saveToLocalStorage();
 }
-//calcola la media dei voti
-function calc(subjectIndex){
+
+function calc(subjectIndex) {
     var somma_voti = 0;
     var somma_pesi = 0;
     const mediaf = document.getElementById("mediaf-" + subjectIndex);
     const comment = document.getElementById("comment-" + subjectIndex);
 
-    for(let j = 0; j < subjects[subjectIndex].voti.length; j++){
+    for (let j = 0; j < subjects[subjectIndex].voti.length; j++) {
         somma_voti += subjects[subjectIndex].voti[j] * subjects[subjectIndex].pesi[j];
         somma_pesi += subjects[subjectIndex].pesi[j];
     }
 
+    if (somma_pesi === 0) {
+        alert("Devi inserire almeno un voto!");
+        return;
+    }
+
     var media = somma_voti / somma_pesi;
 
-    if(subjects[subjectIndex].voti.length > 0){
-        if(media>=6){
+    if (subjects[subjectIndex].voti.length > 0) {
+        if (media >= 6) {
             mediaf.style.backgroundColor = "green";
-            if(media>9){
-                comment.textContent = "+ 1.000.000 aura !"
+            if (media > 9) {
+                comment.textContent = "+ 1.000.000 aura !";
+            } else {
+                comment.textContent = "+ 1.000 aura !";
             }
-            else{
-                comment.textContent = "+ 1.000 aura !"
-            }
-        }
-        else if(media<5){
+        } else if (media < 5) {
             mediaf.style.backgroundColor = "red";
-            comment.textContent = "Calzuò che mi combini"
-        }
-        else if(media<6){
+            comment.textContent = "Calzuò che mi combini";
+        } else if (media < 6) {
             mediaf.style.backgroundColor = "orange";
-            comment.textContent = "- 1.000 aura..."
+            comment.textContent = "- 1.000 aura...";
         }
+
+        var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
+        button.textContent = media.toFixed(2);
+        button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
+        button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
         mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
         comment.style.color = `${mediaf.style.backgroundColor}`;
         mediaf.textContent = media.toFixed(2);
-    }
-    else{
+    } else {
         alert("Devi inserire almeno un voto!");
     }
-    saveData();
+    saveToLocalStorage();
 }
-//aggiungi le materie
-function materia(){
+
+function materia() {
     var newSubject = {
         voti: [],
         pesi: []
     };
     subjects.push(newSubject);
+
     var materia = document.getElementById("materia");
     var materia2 = document.createElement("li");
     materia.appendChild(materia2);
     materia2.classList.add("sub");
     materia2.innerHTML = `<button onclick="cambio(` + i + `)">` + (i+1) + `</button><input type="text" placeholder="Materia..." id="i` + (i+1) + `">`
-    // Crea la nuova materia
+    
     var nuovaMateria = document.createElement("main");
-    nuovaMateria.classList.add("materia-attuale");
-    nuovaMateria.id = "materia-" + (i+1); // Assegna un ID univoco
+    nuovaMateria.classList.add("materia");
+    nuovaMateria.id = "materia-" + (i+1);
 
-    // Aggiungi il contenuto HTML
     nuovaMateria.innerHTML = `<div class="main">
-    <h3>Calcola la media !</h3>
+    <h3>Calcola la tua media !</h3>
             <select id="voto-` + i +`">
                 <option value="10">10</option>
                 <option value="9.75">10-</option>
@@ -137,40 +147,52 @@ function materia(){
             <h1 class="mediaf" id="mediaf-` + i + `"></h1>
             <h3 class="comment" id="comment-` + i + `"></h3>
         </div>`;
-    // Aggiungi la nuova materia al documento
+
     document.body.appendChild(nuovaMateria);
     cambio(i);
     i++;
-    saveData();
+    saveToLocalStorage();
 }
-//cambia le materie
+
 function cambio(n) {
     var materias = document.querySelectorAll(".materia");
     materias.forEach(element => {
-        // Disattiva tutte le materie
         element.classList.add("off");
     });
-    // Attiva solo la materia selezionata
     var materiaSelezionata = document.querySelector("#materia-" + (n+1));
     materiaSelezionata.classList.toggle("off");
     console.log("cambio " + (n+1));
 }
-//cancel voti
-function cancel(){
-    //todo: fare la funzione cancel che rimuove voti pesi e medie
+
+function saveToLocalStorage() {
+    localStorage.setItem("subjects", JSON.stringify(subjects));
 }
 
-function saveData() {
-    localStorage.setItem('subjects', JSON.stringify(subjects));
-}
-
-// Funzione per caricare i dati dal Local Storage
-function loadData() {
-    const savedSubjects = localStorage.getItem('subjects');
-    if (savedSubjects) {
-        subjects = JSON.parse(savedSubjects);
+function loadFromLocalStorage() {
+    var storedSubjects = localStorage.getItem("subjects");
+    if (storedSubjects) {
+        subjects = JSON.parse(storedSubjects);
+        for (let j = 0; j < subjects.length; j++) {
+            materia();
+            for (let k = 0; k < subjects[j].voti.length; k++) {
+                var ul = document.getElementById("media-" + j);
+                var li = document.createElement("li");
+                li.textContent = subjects[j].voti[k] + " (" + subjects[j].pesi[k] + "%)";
+                
+                var removeButton = document.createElement("button");
+                removeButton.textContent = "x";
+                removeButton.classList.add("remove");
+                removeButton.onclick = function() {
+                    var index = Array.prototype.indexOf.call(ul.children, li);
+                    subjects[j].voti.splice(index, 1);
+                    subjects[j].pesi.splice(index, 1);
+                    ul.removeChild(li);
+                    saveToLocalStorage();
+                };
+                
+                ul.appendChild(li);
+                li.appendChild(removeButton);
+            }
+        }
     }
 }
-
-// Chiamata alla funzione loadData all'avvio del sito web
-loadData();

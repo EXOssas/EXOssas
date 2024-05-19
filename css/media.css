@@ -12,7 +12,9 @@ body{
 .main{
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: 50px;
+    row-gap: 25px;
+    margin-right: 25%;
+    margin-left: 50%;
 }
 aside{
     position: fixed;
@@ -32,6 +34,7 @@ aside li{
     display: flex;
     gap: 10px;
     color: cornsilk;
+    margin-block: 25px;
 }
 aside button{
     color: cornsilk;
@@ -44,11 +47,14 @@ aside button:hover{
     color: rgb(33, 33, 33);
     transition: .3s;
 }
+ul{
+    margin-top: -30px;
+    margin-bottom: -15px;
+}
 select, input{
     background-color: rgb(33,33,33);
     border-radius: 15px;
     padding: 5px;
-    margin-inline: 25%;
     text-align: center;
     color: cornsilk;
     font-size: 25px;
@@ -102,9 +108,9 @@ li{
     align-items: center;
     justify-content: center;
     font-size: 1.5em;
-    margin-inline: 47%;
+    margin-inline: 40%;
 }
-#comment{
+.comment{
     margin-top: -30px;
 }
 .off{
