@@ -1,47 +1,119 @@
-@media screen and (max-width:800px){
-    body{
-        background-color: rgb(44,44,44);
-        color: cornsilk;
-        font-family:sans-serif;
-        font-weight: 100;
-        margin: 25px;
-        margin-top: 50px;
-        text-align: center;
-        max-width: 90%;
-    }
-    select, input, button{
-        background-color: rgb(33,33,33);
-        border-radius: 50px;
-        padding: 5;
-        max-width: 70%;
-        text-align: center;
-        color: cornsilk;
-        font-size: 25px;
-        border:0;
-    }
-    button{
-        background-color: rgb(88,88,88);
-        font-size: 17.5px;
-        padding: 10px;
-    }
-    option{
-        font-size: 17px;
-    }
-    li{
-        list-style: none;
-        margin-left: -130px;
-        margin-block: .5em;
-    }
-    .input{
-        display: grid;
-        grid-template-columns: 1fr;
-        margin-inline: 15%;
-        row-gap: 20px;
-    }
-    footer{ 
-        position: static;
-        padding-block: 5px;
-        width: 100%;
-        text-align: center;
-    }
+body{
+    background-color: rgb(44,44,44);
+    color: cornsilk;
+    font-family:cursive;
+    font-weight: 100;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 50px;
+    text-align: center; 
+}
+.main{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 50px;
+}
+aside{
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 25px;
+    background-color: rgb(22,22,22);
+    width: 20%;
+    height: 100%;
+    box-shadow: 0px 0px 25px 0px rgb(88,88,88);
+}
+aside input{
+    margin-inline: 0px !important;
+    max-width: 75%;
+}
+aside li{
+    display: flex;
+    gap: 10px;
+    color: cornsilk;
+}
+aside button{
+    color: cornsilk;
+    cursor: pointer;
+    background-color: rgb(33, 33, 33);
+    transition: .3s;
+}
+aside button:hover{
+    background-color: cornsilk;
+    color: rgb(33, 33, 33);
+    transition: .3s;
+}
+select, input{
+    background-color: rgb(33,33,33);
+    border-radius: 15px;
+    padding: 5px;
+    margin-inline: 25%;
+    text-align: center;
+    color: cornsilk;
+    font-size: 25px;
+    border:0;
+    appearance: none;
+    box-shadow: 0px 0px 15px 0px black;
+}
+button{
+    font-weight: 1000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    color: rgb(44,44,44);
+    border: 0;
+    box-shadow: 0px 0px 15px 0px black;
+    cursor: pointer;
+}
+.add{
+    font-size: 43px !important;
+    background-color: green;
+    font-weight: bold;
+}
+.calc{
+    font-size: 25px !important;
+    background-color: orange;
+}
+#cancel{
+    font-size: 22px !important;
+    background-color: red;
+}
+.flex{
+    display: flex;
+    gap:75px;
+    justify-content: center;
+}
+option{
+    font-size: 17px;
+}
+li{
+    list-style: none;
+    margin-block: .5em;
+    margin-left: -2.5em;
+}
+.mediaf{
+    width: 75px;
+    height: 75px;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    margin-inline: 47%;
+}
+#comment{
+    margin-top: -30px;
+}
+.off{
+    display: none !important;
+}
+.remove{
+    padding: 0;
+    background-color: red;
+    width: 30px;
+    height: 30px;
+    margin-left: 1.5em;
 }
