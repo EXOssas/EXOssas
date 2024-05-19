@@ -79,7 +79,33 @@ function calc(subjectIndex) {
     }
     saveToLocalStorage();
 }
+//need 6
+function calculateNeededGrade(subjectIndex) {
+    var somma_voti = 0;
+    var somma_pesi = 0;
+    var to6 = document.getElementById("to6-" + subjectIndex);
 
+    for (let j = 0; j < subjects[subjectIndex].voti.length; j++) {
+        somma_voti += subjects[subjectIndex].voti[j] * subjects[subjectIndex].pesi[j];
+        somma_pesi += subjects[subjectIndex].pesi[j];
+    }
+
+    if (somma_pesi === 0) {
+        alert("Devi inserire almeno un voto!");
+        return;
+    }
+
+    var media = somma_voti / somma_pesi;
+
+    if (media >= 6) {
+        to6.textContent = "Hai già una media di 6 o superiore!";
+        return;
+    }
+
+    var neededGrade = (6 * (somma_pesi + 100) - somma_voti) / 100; 
+    to6.textContent = "Per raggiungere una media di 6, devi prendere almeno " + neededGrade.toFixed(2) + " al prossimo esame col peso al 100%.";
+}
+//materie
 function materia() {
     var newSubject = {
         voti: [],
@@ -138,7 +164,7 @@ function materia() {
             <div class="flex">
                 <button onclick="add(` + i + `)" class="add" id="add-` + i + `">+</button>
                 <button onclick="calc(` + i + `)" class="calc" id="calc-` + i + `">%</button>
-                <button onclick="cancel()" id="cancel" ><i class="fa-solid fa-arrows-rotate"></i></button>
+                <button onclick="calculateNeededGrade(` + i + `)" class="calc-needed" id="calc-needed-` + i + `">6</button>
             </div>
             <h3>Qui vedrai i voti e i pesi:</h3>
             <ul class="media" id="media-` + i + `">
@@ -146,6 +172,7 @@ function materia() {
             </ul>
             <h1 class="mediaf" id="mediaf-` + i + `"></h1>
             <h3 class="comment" id="comment-` + i + `"></h3>
+            <h5 class="comment" id="to6-` + i + `"></h5>
         </div>`;
 
     document.body.appendChild(nuovaMateria);
