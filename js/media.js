@@ -150,7 +150,7 @@ function materia() {
             <div class="flex">
                 <button onclick="add(${i})" class="add" id="add-${i}">+</button>
                 <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}">6</button>
-                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">Elimina Tutti</button>
+                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">X</button>
             </div>
             <h3>Qui vedrai i voti e i pesi:</h3>
             <ul class="media" id="media-${i}">
