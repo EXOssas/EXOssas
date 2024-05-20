@@ -170,12 +170,14 @@ function removeAllVotes(subjectIndex) {
     subjects[subjectIndex].voti = [];
     subjects[subjectIndex].pesi = [];
     const mediaf = document.getElementById("mediaf-" + subjectIndex);
+    const comment = document.getElementById("comment-" + subjectIndex);
     var ul = document.getElementById("media-" + subjectIndex);
     while (ul.firstChild) {
         ul.removeChild(ul.firstChild);
     }
     mediaf.textContent = "-";
-    mediaf.backgroundColor = "orange";
+    mediaf.style.backgroundColor = "orange";
+    comment.textContent = " ";
 }
 
 function cambio(n) {
