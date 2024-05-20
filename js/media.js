@@ -1,4 +1,3 @@
-
 var i = 0;
 var subjects = [];
 
@@ -8,7 +7,7 @@ function add(subjectIndex) {
     var peso = parseFloat(document.getElementById("peso-" + subjectIndex).value);
 
     if (peso < 1 || peso > 100) {
-        alert("Il peso deve andare da 1 a 100 coglione !");
+        alert("Il peso deve andare da 1 a 100 coglione!");
         return;
     }
 
@@ -26,11 +25,13 @@ function add(subjectIndex) {
         subjects[subjectIndex].pesi.splice(index, 1);
         ul.removeChild(li);
         saveToLocalStorage();
+        calc(subjectIndex);  // Recalculate the average after removing the vote
     };
 
     ul.appendChild(li);
     li.appendChild(removeButton);
     saveToLocalStorage();
+    calc(subjectIndex);  // Recalculate the average after adding the vote
 }
 
 function calc(subjectIndex) {
