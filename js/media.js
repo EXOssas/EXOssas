@@ -6,7 +6,7 @@ function add(subjectIndex) {
     var peso = parseFloat(document.getElementById("peso-" + subjectIndex).value);
 
     if (peso < 1 || peso > 100) {
-        alert("Il peso deve andare da 1 a 100 coglione!");
+        alert("Il peso deve andare da 1 a 100!");
         return;
     }
 
@@ -19,6 +19,7 @@ function add(subjectIndex) {
 
     ul.appendChild(li);
     calc(subjectIndex);
+    saveData(); // Salva i dati
 }
 
 function calc(subjectIndex) {
@@ -63,6 +64,7 @@ function calc(subjectIndex) {
     mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
     comment.style.color = `${mediaf.style.backgroundColor}`;
     mediaf.textContent = media.toFixed(2);
+    saveData(); // Salva i dati
 }
 
 function calculateNeededGrade(subjectIndex) {
@@ -97,21 +99,111 @@ function materia() {
         pesi: []
     };
     subjects.push(newSubject);
+    addSubjectToDOM(i);
+    cambio(i);
+    i++;
+    saveData(); // Salva i dati
+}
 
+function removeAllVotes(subjectIndex) {
+    subjects[subjectIndex].voti = [];
+    subjects[subjectIndex].pesi = [];
+    const mediaf = document.getElementById("mediaf-" + subjectIndex);
+    const comment = document.getElementById("comment-" + subjectIndex);
+    var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
+    var ul = document.getElementById("media-" + subjectIndex);
+    while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+    }
+    mediaf.style.backgroundColor = "#008dc0";
+    mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
+    mediaf.textContent = "-";
+    button.textContent = "-"; 
+    button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
+    button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
+    comment.textContent = "Nessuna media calcolata";
+    comment.style.color = `${mediaf.style.backgroundColor}`;
+    saveData(); // Salva i dati
+}
+
+function cambio(n) {
+    var materias = document.querySelectorAll(".materia");
+    materias.forEach(element => {
+        element.classList.add("off");
+    });
+    var materiaSelezionata = document.querySelector("#materia-" + (n + 1));
+    materiaSelezionata.classList.toggle("off");
+    console.log("cambio " + (n + 1));
+}
+
+function mat() {
+    if (subjects.length === 0) {
+        alert("Non ci sono materie da rimuovere!");
+        return;
+    }
+
+    var subjectIndex = subjects.length - 1; // Indice dell'ultima materia
+    subjects.pop(); // Rimuove l'ultima materia dall'array
+
+    // Rimuove gli elementi DOM associati all'ultima materia
+    var materia = document.getElementById("materia");
+    var lastMateriaElement = materia.lastElementChild;
+    if (lastMateriaElement) {
+        materia.removeChild(lastMateriaElement);
+    }
+
+    var lastMainElement = document.getElementById("materia-" + (subjectIndex + 1));
+    if (lastMainElement) {
+        document.body.removeChild(lastMainElement);
+    }
+
+    i--; // Decrementa l'indice delle materie
+    saveData(); // Salva i dati
+}
+
+function saveData() {
+    localStorage.setItem('subjects', JSON.stringify(subjects));
+    localStorage.setItem('i', i);
+}
+
+function loadData() {
+    const savedSubjects = localStorage.getItem('subjects');
+    const savedIndex = localStorage.getItem('i');
+
+    if (savedSubjects) {
+        subjects = JSON.parse(savedSubjects);
+    }
+
+    if (savedIndex) {
+        i = parseInt(savedIndex, 10);
+    }
+
+    for (let index = 0; index < subjects.length; index++) {
+        const newSubject = subjects[index];
+        addSubjectToDOM(index);
+        subjects[index].voti.forEach((voto, votoIndex) => {
+            const peso = subjects[index].pesi[votoIndex];
+            addVoteToDOM(index, voto, peso);
+        });
+        calc(index);
+    }
+}
+
+function addSubjectToDOM(subjectIndex) {
     var materia = document.getElementById("materia");
     var materia2 = document.createElement("li");
     materia.appendChild(materia2);
     materia2.classList.add("sub");
-    materia2.innerHTML = `<button onclick="cambio(${i})" class="scegli">-</button><input type="text" placeholder="Materia..." id="i${i + 1}">`;
+    materia2.innerHTML = `<button onclick="cambio(${subjectIndex})" class="scegli">-</button><input type="text" placeholder="Materia..." id="i${subjectIndex + 1}">`;
 
     var nuovaMateria = document.createElement("main");
     nuovaMateria.classList.add("materia");
-    nuovaMateria.id = "materia-" + (i + 1);
+    nuovaMateria.id = "materia-" + (subjectIndex + 1);
 
     nuovaMateria.innerHTML = `
         <div class="main">
             <h3>Calcola la tua media !</h3>
-            <select id="voto-${i}">
+            <select id="voto-${subjectIndex}">
                 <option value="10">10</option>
                 <option value="9.75">10-</option>
                 <option value="9.5">9.5</option>
@@ -146,52 +238,32 @@ function materia() {
                 <option value="2.25">2+</option>
                 <option value="2">2</option>
             </select>
-            <input type="text" placeholder="100%" value="100" id="peso-${i}">
+            <input type="text" placeholder="100%" value="100" id="peso-${subjectIndex}">
             <div class="flex">
-                <button onclick="add(${i})" class="add" id="add-${i}">+</button>
-                <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}">6</button>
-                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">X</button>
+                <button onclick="add(${subjectIndex})" class="add" id="add-${subjectIndex}">+</button>
+                <button onclick="calculateNeededGrade(${subjectIndex})" class="calc-needed" id="calc-needed-${subjectIndex}">6</button>
+                <button onclick="removeAllVotes(${subjectIndex})" class="remove-all" id="remove-all-${subjectIndex}">X</button>
             </div>
             <h3>Qui vedrai i voti e i pesi:</h3>
-            <ul class="media" id="media-${i}">
+            <ul class="media" id="media-${subjectIndex}">
                 <li></li>
             </ul>
-            <h1 class="mediaf" id="mediaf-${i}"></h1>
-            <h3 class="comment" id="comment-${i}"></h3>
-            <h5 class="comment" id="to6-${i}"></h5>
+            <h1 class="mediaf" id="mediaf-${subjectIndex}"></h1>
+            <h3 class="comment" id="comment-${subjectIndex}"></h3>
+            <h5 class="comment" id="to6-${subjectIndex}"></h5>
         </div>`;
 
     document.body.appendChild(nuovaMateria);
-    cambio(i);
-    i++;
 }
 
-function removeAllVotes(subjectIndex) {
-    subjects[subjectIndex].voti = [];
-    subjects[subjectIndex].pesi = [];
-    const mediaf = document.getElementById("mediaf-" + subjectIndex);
-    const comment = document.getElementById("comment-" + subjectIndex);
-    var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
+function addVoteToDOM(subjectIndex, voto, peso) {
     var ul = document.getElementById("media-" + subjectIndex);
-    while (ul.firstChild) {
-        ul.removeChild(ul.firstChild);
-    }
-    mediaf.style.backgroundColor = "#008dc0";
-    mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
-    mediaf.textContent = "-";
-    button.textContent = "-"; 
-    button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
-    button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
-    comment.textContent = "Nessuna media calcolata";
-    comment.style.color = `${mediaf.style.backgroundColor}`;
+    var li = document.createElement("li");
+    li.textContent = voto + " (" + peso + "%)";
+    ul.appendChild(li);
 }
 
-function cambio(n) {
-    var materias = document.querySelectorAll(".materia");
-    materias.forEach(element => {
-        element.classList.add("off");
-    });
-    var materiaSelezionata = document.querySelector("#materia-" + (n + 1));
-    materiaSelezionata.classList.toggle("off");
-    console.log("cambio " + (n + 1));
-}
+// Carica i dati quando la pagina viene caricata
+window.onload = function() {
+    loadData();
+};

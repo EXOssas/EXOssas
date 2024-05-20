@@ -80,6 +80,13 @@ button{
     font-size: 43px !important;
     background-color: green;
     font-weight: bold;
+    margin: 15px;
+}
+.canc{
+    font-size: 43px !important;
+    background-color: red;
+    font-weight: bold;
+    margin: 15px;
 }
 .remove-all{
     font-size: 25px !important;
