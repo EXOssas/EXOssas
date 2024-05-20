@@ -78,13 +78,13 @@ button{
     background-color: green;
     font-weight: bold;
 }
-.calc{
+.cacel-all{
     font-size: 25px !important;
-    background-color: orange;
+    background-color: red;
 }
 .calc-needed{
     font-size: 22px !important;
-    background-color: red;
+    background-color: orange;
 }
 .flex{
     display: flex;
