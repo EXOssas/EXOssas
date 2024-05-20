@@ -18,7 +18,6 @@ function add(subjectIndex) {
     li.textContent = voto + " (" + peso + "%)";
 
     ul.appendChild(li);
-    saveToLocalStorage();
     calc(subjectIndex);
 }
 
@@ -62,8 +61,6 @@ function calc(subjectIndex) {
     mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
     comment.style.color = `${mediaf.style.backgroundColor}`;
     mediaf.textContent = media.toFixed(2);
-
-    saveToLocalStorage();
 }
 
 function calculateNeededGrade(subjectIndex) {
@@ -166,7 +163,6 @@ function materia() {
     document.body.appendChild(nuovaMateria);
     cambio(i);
     i++;
-    saveToLocalStorage();
 }
 
 function removeAllVotes(subjectIndex) {
@@ -177,7 +173,6 @@ function removeAllVotes(subjectIndex) {
         ul.removeChild(ul.firstChild);
     }
     calc(subjectIndex);
-    saveToLocalStorage();
 }
 
 function cambio(n) {
@@ -189,25 +184,3 @@ function cambio(n) {
     materiaSelezionata.classList.toggle("off");
     console.log("cambio " + (n + 1));
 }
-
-function saveToLocalStorage() {
-    localStorage.setItem("subjects", JSON.stringify(subjects));
-}
-
-function loadFromLocalStorage() {
-    var storedSubjects = localStorage.getItem("subjects");
-    if (storedSubjects) {
-        subjects = JSON.parse(storedSubjects);
-        for (let j = 0; j < subjects.length; j++) {
-            materia();
-            for (let k = 0; k < subjects[j].voti.length; k++) {
-                var ul = document.getElementById(“media-” + j);
-var li = document.createElement(“li”);
-li.textContent = subjects[j].voti[k] + “ (” + subjects[j].pesi[k] + “%)”;
-ul.appendChild(li);
-}
-}
-}
-}
-
-document.addEventListener(“DOMContentLoaded”, loadFromLocalStorage);
