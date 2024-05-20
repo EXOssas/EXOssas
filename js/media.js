@@ -173,7 +173,6 @@ function removeAllVotes(subjectIndex) {
     while (ul.firstChild) {
         ul.removeChild(ul.firstChild);
     }
-    calc(subjectIndex);
 }
 
 function cambio(n) {
