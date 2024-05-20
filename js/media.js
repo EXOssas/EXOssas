@@ -171,18 +171,18 @@ function removeAllVotes(subjectIndex) {
     subjects[subjectIndex].pesi = [];
     const mediaf = document.getElementById("mediaf-" + subjectIndex);
     const comment = document.getElementById("comment-" + subjectIndex);
+    var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
     var ul = document.getElementById("media-" + subjectIndex);
     while (ul.firstChild) {
         ul.removeChild(ul.firstChild);
     }
-    var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
-    button.textContent = "-"; 
-    mediaf.style.backgroundColor = "orange";
-    button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
-    button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
+    mediaf.style.backgroundColor = "blue";
     mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
     mediaf.textContent = "-";
-    comment.textContent = " ";
+    button.textContent = "-"; 
+    button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
+    button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
+    comment.textContent = "Nessuna media calcolata";
 }
 
 function cambio(n) {
