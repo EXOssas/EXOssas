@@ -176,13 +176,14 @@ function removeAllVotes(subjectIndex) {
     while (ul.firstChild) {
         ul.removeChild(ul.firstChild);
     }
-    mediaf.style.backgroundColor = "blue";
+    mediaf.style.backgroundColor = "#008dc0";
     mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
     mediaf.textContent = "-";
     button.textContent = "-"; 
     button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
     button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
     comment.textContent = "Nessuna media calcolata";
+    comment.style.color = `${mediaf.style.backgroundColor}`;
 }
 
 function cambio(n) {
