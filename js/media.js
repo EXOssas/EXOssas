@@ -177,11 +177,11 @@ function removeAllVotes(subjectIndex) {
     }
     var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
     button.textContent = "-"; 
+    mediaf.style.backgroundColor = "orange";
     button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
     button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
     mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
     mediaf.textContent = "-";
-    mediaf.style.backgroundColor = "orange";
     comment.textContent = " ";
 }
 
