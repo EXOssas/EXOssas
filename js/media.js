@@ -2,7 +2,6 @@ var i = 0;
 var subjects = [];
 
 function add(subjectIndex) {
-    var removeButton = document.createElement("button");
     var voto = parseFloat(document.getElementById("voto-" + subjectIndex).value);
     var peso = parseFloat(document.getElementById("peso-" + subjectIndex).value);
 
@@ -14,24 +13,13 @@ function add(subjectIndex) {
     subjects[subjectIndex].voti.push(voto);
     subjects[subjectIndex].pesi.push(peso);
 
-    var ul = document.getElementById("media-" + (subjectIndex));
+    var ul = document.getElementById("media-" + subjectIndex);
     var li = document.createElement("li");
     li.textContent = voto + " (" + peso + "%)";
-    removeButton.textContent = "x";
-    removeButton.classList.add("remove");
-    removeButton.onclick = function() {
-        var index = Array.prototype.indexOf.call(ul.children, li);
-        subjects[subjectIndex].voti.splice(index, 1);
-        subjects[subjectIndex].pesi.splice(index, 1);
-        ul.removeChild(li);
-        saveToLocalStorage();
-        calc(subjectIndex);  // Recalculate the average after removing the vote
-    };
 
     ul.appendChild(li);
-    li.appendChild(removeButton);
     saveToLocalStorage();
-    calc(subjectIndex);  // Recalculate the average after adding the vote
+    calc(subjectIndex);
 }
 
 function calc(subjectIndex) {
@@ -52,35 +40,32 @@ function calc(subjectIndex) {
 
     var media = somma_voti / somma_pesi;
 
-    if (subjects[subjectIndex].voti.length > 0) {
-        if (media >= 6) {
-            mediaf.style.backgroundColor = "green";
-            if (media > 9) {
-                comment.textContent = "+ 1.000.000 aura !";
-            } else {
-                comment.textContent = "+ 1.000 aura !";
-            }
-        } else if (media < 5) {
-            mediaf.style.backgroundColor = "red";
-            comment.textContent = "Calzuò che mi combini";
-        } else if (media < 6) {
-            mediaf.style.backgroundColor = "orange";
-            comment.textContent = "- 1.000 aura...";
+    if (media >= 6) {
+        mediaf.style.backgroundColor = "green";
+        if (media > 9) {
+            comment.textContent = "+ 1.000.000 aura !";
+        } else {
+            comment.textContent = "+ 1.000 aura !";
         }
-
-        var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
-        button.textContent = media.toFixed(2);
-        button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
-        button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
-        mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
-        comment.style.color = `${mediaf.style.backgroundColor}`;
-        mediaf.textContent = media.toFixed(2);
-    } else {
-        alert("Devi inserire almeno un voto!");
+    } else if (media < 5) {
+        mediaf.style.backgroundColor = "red";
+        comment.textContent = "Calzuò che mi combini";
+    } else if (media < 6) {
+        mediaf.style.backgroundColor = "orange";
+        comment.textContent = "- 1.000 aura...";
     }
+
+    var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
+    button.textContent = media.toFixed(2);
+    button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
+    button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
+    mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
+    comment.style.color = `${mediaf.style.backgroundColor}`;
+    mediaf.textContent = media.toFixed(2);
+
     saveToLocalStorage();
 }
-//need 6
+
 function calculateNeededGrade(subjectIndex) {
     var somma_voti = 0;
     var somma_pesi = 0;
@@ -103,10 +88,10 @@ function calculateNeededGrade(subjectIndex) {
         return;
     }
 
-    var neededGrade = (6 * (somma_pesi + 100) - somma_voti) / 100; 
+    var neededGrade = (6 * (somma_pesi + 100) - somma_voti) / 100;
     to6.textContent = "Per raggiungere una media di 6, devi prendere almeno " + neededGrade.toFixed(2) + " al prossimo esame col peso al 100%.";
 }
-//materie
+
 function materia() {
     var newSubject = {
         voti: [],
@@ -118,15 +103,16 @@ function materia() {
     var materia2 = document.createElement("li");
     materia.appendChild(materia2);
     materia2.classList.add("sub");
-    materia2.innerHTML = `<button onclick="cambio(` + i + `)">` + (i+1) + `</button><input type="text" placeholder="Materia..." id="i` + (i+1) + `">`
-    
+    materia2.innerHTML = `<button onclick="cambio(${i})">${i + 1}</button><input type="text" placeholder="Materia..." id="i${i + 1}">`;
+
     var nuovaMateria = document.createElement("main");
     nuovaMateria.classList.add("materia");
-    nuovaMateria.id = "materia-" + (i+1);
+    nuovaMateria.id = "materia-" + (i + 1);
 
-    nuovaMateria.innerHTML = `<div class="main">
-    <h3>Calcola la tua media !</h3>
-            <select id="voto-` + i +`">
+    nuovaMateria.innerHTML = `
+        <div class="main">
+            <h3>Calcola la tua media !</h3>
+            <select id="voto-${i}">
                 <option value="10">10</option>
                 <option value="9.75">10-</option>
                 <option value="9.5">9.5</option>
@@ -160,20 +146,21 @@ function materia() {
                 <option value="2.5">2.5</option>
                 <option value="2.25">2+</option>
                 <option value="2">2</option>
-            </select>            
-            <input type="text" placeholder="100%" value="100" id="peso-` + i + `">
+            </select>
+            <input type="text" placeholder="100%" value="100" id="peso-${i}">
             <div class="flex">
-                <button onclick="add(` + i + `)" class="add" id="add-` + i + `">+</button>
-                <button onclick="calc(` + i + `)" class="calc" id="calc-` + i + `">%</button>
-                <button onclick="calculateNeededGrade(` + i + `)" class="calc-needed" id="calc-needed-` + i + `">6</button>
+                <button onclick="add(${i})" class="add" id="add-${i}">+</button>
+                <button onclick="calc(${i})" class="calc" id="calc-${i}">%</button>
+                <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}">6</button>
+                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">Elimina Tutti</button>
             </div>
             <h3>Qui vedrai i voti e i pesi:</h3>
-            <ul class="media" id="media-` + i + `">
+            <ul class="media" id="media-${i}">
                 <li></li>
             </ul>
-            <h1 class="mediaf" id="mediaf-` + i + `"></h1>
-            <h3 class="comment" id="comment-` + i + `"></h3>
-            <h5 class="comment" id="to6-` + i + `"></h5>
+            <h1 class="mediaf" id="mediaf-${i}"></h1>
+            <h3 class="comment" id="comment-${i}"></h3>
+            <h5 class="comment" id="to6-${i}"></h5>
         </div>`;
 
     document.body.appendChild(nuovaMateria);
@@ -182,14 +169,25 @@ function materia() {
     saveToLocalStorage();
 }
 
+function removeAllVotes(subjectIndex) {
+    subjects[subjectIndex].voti = [];
+    subjects[subjectIndex].pesi = [];
+    var ul = document.getElementById("media-" + subjectIndex);
+    while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+    }
+    calc(subjectIndex);
+    saveToLocalStorage();
+}
+
 function cambio(n) {
     var materias = document.querySelectorAll(".materia");
     materias.forEach(element => {
         element.classList.add("off");
     });
-    var materiaSelezionata = document.querySelector("#materia-" + (n+1));
+    var materiaSelezionata = document.querySelector("#materia-" + (n + 1));
     materiaSelezionata.classList.toggle("off");
-    console.log("cambio " + (n+1));
+    console.log("cambio " + (n + 1));
 }
 
 function saveToLocalStorage() {
@@ -203,24 +201,13 @@ function loadFromLocalStorage() {
         for (let j = 0; j < subjects.length; j++) {
             materia();
             for (let k = 0; k < subjects[j].voti.length; k++) {
-                var ul = document.getElementById("media-" + j);
-                var li = document.createElement("li");
-                li.textContent = subjects[j].voti[k] + " (" + subjects[j].pesi[k] + "%)";
-                
-                var removeButton = document.createElement("button");
-                removeButton.textContent = "x";
-                removeButton.classList.add("remove");
-                removeButton.onclick = function() {
-                    var index = Array.prototype.indexOf.call(ul.children, li);
-                    subjects[j].voti.splice(index, 1);
-                    subjects[j].pesi.splice(index, 1);
-                    ul.removeChild(li);
-                    saveToLocalStorage();
-                };
-                
-                ul.appendChild(li);
-                li.appendChild(removeButton);
-            }
-        }
-    }
+                var ul = document.getElementById(“media-” + j);
+var li = document.createElement(“li”);
+li.textContent = subjects[j].voti[k] + “ (” + subjects[j].pesi[k] + “%)”;
+ul.appendChild(li);
 }
+}
+}
+}
+
+document.addEventListener(“DOMContentLoaded”, loadFromLocalStorage);
