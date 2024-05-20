@@ -34,6 +34,8 @@ function calc(subjectIndex) {
 
     if (somma_pesi === 0) {
         alert("Devi inserire almeno un voto!");
+        mediaf.textContent = "";
+        comment.textContent = "";
         return;
     }
 
@@ -147,7 +149,6 @@ function materia() {
             <input type="text" placeholder="100%" value="100" id="peso-${i}">
             <div class="flex">
                 <button onclick="add(${i})" class="add" id="add-${i}">+</button>
-                <button onclick="calc(${i})" class="calc" id="calc-${i}">%</button>
                 <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}">6</button>
                 <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">Elimina Tutti</button>
             </div>
