@@ -102,7 +102,7 @@ function materia() {
     var materia2 = document.createElement("li");
     materia.appendChild(materia2);
     materia2.classList.add("sub");
-    materia2.innerHTML = `<button onclick="cambio(${i})">${i + 1}</button><input type="text" placeholder="Materia..." id="i${i + 1}">`;
+    materia2.innerHTML = `<button onclick="cambio(${i})" class="scegli">-</button><input type="text" placeholder="Materia..." id="i${i + 1}">`;
 
     var nuovaMateria = document.createElement("main");
     nuovaMateria.classList.add("materia");
