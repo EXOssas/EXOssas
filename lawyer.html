@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avvocato Cristina Rastelli</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #1c1c1c;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo a {
+            font-size: 1.8rem;
+            color: #f1f1f1;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 0.1rem;
+        }
+        .navbar .links {
+            margin-left: 2rem; /* Spostato i link verso sinistra */
+        }
+        .navbar .links a {
+            font-size: 0.8rem;
+            color: #f1f1f1;
+            text-decoration: none;
+            padding: 0.3rem 0.6rem;
+            margin: 0 0.3rem;
+            transition: color 0.3s, background-color 0.3s, border 0.3s;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+        .navbar .links a:hover {
+            color: #000;
+            background-color: #f1f1f1;
+            border: 2px solid #f1f1f1;
+        }
+        .main {
+            padding: 6rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .main img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .news {
+            padding: 2rem;
+        }
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+        }
+        .news-item h3 {
+            margin-top: 0;
+        }
+        footer {
+            background-color: #1c1c1c;
+            padding: 1rem 2rem;
+            text-align: center;
+            color: #f1f1f1;
+        }
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .image-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 2rem 1rem;
+        }
+        .image-scroll .image-item {
+            flex: 0 0 auto;
+            width: 300px;
+            margin-right: 1rem;
+            text-align: center;
+        }
+        .image-scroll img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">CR</a>
+        </div>
+        <div class="links">
+            <a href="#about">Chi Sono</a>
+            <a href="#news">Notizie</a>
+            <a href="#contact">Contatti</a>
+        </div>
+    </div>
+
+    <div class="main" id="about">
+        <h1>Avvocato Cristina Rastelli</h1>
+        <p>Specializzata in difesa legale e consulenza giuridica, l'Avvocato Cristina Rastelli è nota per la sua eccellenza e dedizione nel rappresentare i suoi clienti.</p>
+        <img src="https://via.placeholder.com/600x400" alt="Avvocato Cristina Rastelli">
+    </div>
+
+    <div class="image-scroll">
+        <div class="image-item">
+            <img src="https://via.placeholder.com/300x200" alt="Immagine 1">
+            <h4>Titolo Immagine 1</h4>
+        </div>
+        <div class="image-item">
+            <img src="https://via.placeholder.com/300x200" alt="Immagine 2">
+            <h4>Titolo Immagine 2</h4>
+        </div>
+        <div class="image-item">
+            <img src="https://via.placeholder.com/300x200" alt="Immagine 3">
+            <h4>Titolo Immagine 3</h4>
+        </div>
+        <div class="image-item">
+            <img src="https://via.placeholder.com/300x200" alt="Immagine 4">
+            <h4>Titolo Immagine 4</h4>
+        </div>
+    </div>
+
+    <div class="news" id="news">
+        <h2>Ultime Notizie</h2>
+        <div class="news-item">
+            <h3>Vittoria in una causa importante</h3>
+            <p>L'Avvocato Rastelli ha recentemente ottenuto una vittoria significativa in un caso di alto profilo, dimostrando ancora una volta la sua abilità e competenza in aula.</p>
+        </div>
+        <div class="news-item">
+            <h3>Nuovo articolo pubblicato</h3>
+            <p>Leggi l'ultimo articolo dell'Avvocato Rastelli sulla protezione dei diritti dei consumatori, pubblicato sulla rivista giuridica nazionale.</p>
+        </div>
+        <div class="news-item">
+            <h3>Intervista su TV Nazionale</h3>
+            <p>L'Avvocato Rastelli è stata intervistata su una rete televisiva nazionale riguardo a un recente caso di grande risonanza mediatica.</p>
+        </div>
+        <div class="news-item">
+            <h3>Conferenza sui diritti umani</h3>
+            <p>L'Avvocato Rastelli ha tenuto una conferenza sui diritti umani presso una prestigiosa università, discutendo le ultime novità legislative.</p>
+        </div>
+    </div>
+    <footer id="contact">
+        <p>Via Avv. Cristina Rastelli, 123 - Vicenza</p>
+        <p>Tel: +39 0123 456789</p>
+        <p>Email: cristina.rastelli@gmail.com</p> <!-- Aggiunta email normale -->
+        <p>PEC: cristina.rastelli@pec.avvocati.it</p>
+        <p>&copy; 2024 Avvocato Cristina Rastelli. Tutti i diritti riservati.</p> <!-- Aggiunta copyright -->
+    </footer>
+</body>
+</html>
