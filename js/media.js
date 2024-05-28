@@ -88,7 +88,19 @@ function calculateNeededGrade(subjectIndex) {
     }
 
     var neededGrade = (6 * (somma_pesi + 100) - somma_voti) / 100;
-    to6.textContent = "Per raggiungere una media di 6, devi prendere almeno " + neededGrade.toFixed(2) + " al prossimo esame col peso al 100%.";
+
+    if (neededGrade > 9) {
+        // Calculate the required grades for two exams
+        var remainingSommaPesi = 200; // Two exams with weight 100 each
+        var requiredSum = 6 * (somma_pesi + remainingSommaPesi) - somma_voti;
+
+        var grade1 = requiredSum / 2 / 100;
+        var grade2 = requiredSum / 2 / 100;
+
+        to6.textContent = "Per raggiungere una media di 6, devi prendere almeno " + grade1.toFixed(2) + " e " + grade2.toFixed(2) + " nei prossimi due esami col peso al 100%.";
+    } else {
+        to6.textContent = "Per raggiungere una media di 6, devi prendere almeno " + neededGrade.toFixed(2) + " al prossimo esame col peso al 100%.";
+    }
 }
 
 function materia() {
