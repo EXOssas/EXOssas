@@ -5,76 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avvocato Cristina Rastelli</title>
     <style>
-        /* CSS con l'aggiunta dell'animazione fade-in */
         body {
             margin: 0;
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            background-color: #f2f2f2;
-            color: #333;
-            animation: fadeIn 0.5s ease-out;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f1f1f1;
         }
-
         .navbar {
-            background-color: #333;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .links a {
-            color: #fff;
-        }
-
-        .main {
-            padding: 6rem 2rem;
-            text-align: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .image-scroll {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 2rem 1rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .news-item,
-        .footer {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Aggiungi stile per i pop-up */
-        .popup {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #1c1c1c;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
-            display: none;
-        }
-
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 9998;
-            display: none;
+            top: 0;
+            z-index: 1000;
         }
-
-        /* Aggiungi animazione per pop-up */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+        .navbar .logo a {
+            font-size: 1.8rem;
+            color: #f1f1f1;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 0.1rem;
+        }
+        .navbar .links {
+            margin-right: 1em; /* Spostato i link verso sinistra */
+        }
+        .navbar .links a {
+            font-size: 0.8rem;
+            color: #f1f1f1;
+            text-decoration: none;
+            padding: 0.3rem 0.6rem;
+            margin-left: -10px;
+            margin-right: 25px;
+            transition: color 0.3s, background-color 0.3s, border 0.3s;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+        .navbar .links a:hover {
+            color: #000;
+            background-color: #f1f1f1;
+            border: 2px solid #f1f1f1;
+        }
+        .main {
+            padding: 6rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .main img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .news {
+            padding: 2rem;
+        }
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+        }
+        .news-item h3 {
+            margin-top: 0;
+        }
+        footer {
+            background-color: #1c1c1c;
+            padding: 1rem 2rem;
+            text-align: center;
+            color: #f1f1f1;
+        }
+        footer a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .image-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 2rem 1rem;
+        }
+        .image-scroll .image-item {
+            flex: 0 0 auto;
+            width: 300px;
+            margin-right: 1rem;
+            text-align: center;
+        }
+        .image-scroll img {
+            max-width: 100%;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -138,31 +160,7 @@
         <p>Via Avv. Cristina Rastelli, 123 - Vicenza</p>
         <p>Tel: +39 0123 456789</p>
         <p>Email: cristina.rastelli@gmail.com</p> <!-- Aggiunta email normale -->
-        <p>PEC: cristina.rastelli@pec.avvocati.it</p>
-        <p>&copy; 2024 Avvocato Cristina Rastelli. Tutti i diritti riservati.</p> <!-- Aggiunta copyright -->
+        <p>PEC: cristina.rastelli</p>
     </footer>
-
-    <!-- Aggiungi pop-up nella sezione body -->
-    <div class="popup-overlay" id="overlay"></div>
-    <div class="popup" id="popup">
-        <h2>Titolo del Pop-up</h2>
-        <p>Contenuto del pop-up...</p>
-        <button onclick="closePopup()">Chiudi</button>
-    </div>
-
-    <!-- JavaScript per aprire e chiudere il pop-up -->
-    <script>
-        function openPopup() {
-            document.getElementById("overlay").style.display = "block";
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("overlay").classList.add("fadeIn");
-                    document.getElementById("popup").classList.add("fadeIn");
-    }
-
-    function closePopup() {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("popup").style.display = "none";
-    }
-</script>
 </body>
 </html>
