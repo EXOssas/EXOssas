@@ -1,6 +1,110 @@
 var i = 0;
 var subjects = [];
 
+// Funzione per salvare lo stato nel localStorage
+function saveState() {
+    localStorage.setItem("subjects", JSON.stringify(subjects));
+    localStorage.setItem("i", i.toString());
+}
+
+// Funzione per caricare lo stato dal localStorage
+function loadState() {
+    const savedSubjects = localStorage.getItem("subjects");
+    const savedI = localStorage.getItem("i");
+
+    if (savedSubjects && savedI) {
+        subjects = JSON.parse(savedSubjects);
+        i = parseInt(savedI, 10);
+
+        for (let j = 0; j < subjects.length; j++) {
+            recreateSubject(j);
+        }
+    }
+}
+
+// Funzione per ricreare un soggetto dall'array subjects
+function recreateSubject(subjectIndex) {
+    var newSubject = {
+        voti: subjects[subjectIndex].voti,
+        pesi: subjects[subjectIndex].pesi
+    };
+    subjects[subjectIndex] = newSubject;
+
+    var materia = document.getElementById("materia");
+    var materia2 = document.createElement("li");
+    materia.appendChild(materia2);
+    materia2.classList.add("sub");
+    materia2.innerHTML = `<button onclick="cambio(${subjectIndex})" class="scegli">-</button><input type="text" placeholder="Materia..." id="i${subjectIndex + 1}">`;
+
+    var nuovaMateria = document.createElement("main");
+    nuovaMateria.classList.add("materia");
+    nuovaMateria.id = "materia-" + (subjectIndex + 1);
+
+    nuovaMateria.innerHTML = `
+        <div class="main">
+            <h3>Calcola la tua media !</h3>
+            <select id="voto-${subjectIndex}">
+                <option value="10">10</option>
+                <option value="9.75">10-</option>
+                <option value="9.5">9.5</option>
+                <option value="9.25">9+</option>
+                <option value="9">9</option>
+                <option value="8.75">9-</option>
+                <option value="8.5">8.5</option>
+                <option value="8.25">8+</option>
+                <option value="8">8</option>
+                <option value="7.75">8-</option>
+                <option value="7.5" selected>7.5</option>
+                <option value="7.25">7+</option>
+                <option value="7">7</option>
+                <option value="6.75">7-</option>
+                <option value="6.5">6.5</option>
+                <option value="6.25">6+</option>
+                <option value="6">6</option>
+                <option value="5.75">6-</option>
+                <option value="5.5">5.5</option>
+                <option value="5.25">5+</option>
+                <option value="5">5</option>
+                <option value="4.75">5-</option>
+                <option value="4.5">4.5</option>
+                <option value="4.25">4+</option>
+                <option value="4">4</option>
+                <option value="3.75">4-</option>
+                <option value="3.5">3.5</option>
+                <option value="3.25">3+</option>
+                <option value="3">3</option>
+                <option value="2.75">3-</option>
+                <option value="2.5">2.5</option>
+                <option value="2.25">2+</option>
+                <option value="2">2</option>
+            </select>
+            <input type="text" placeholder="100%" value="100" id="peso-${subjectIndex}">
+            <div class="flex">
+                <button onclick="add(${subjectIndex})" class="add" id="add-${subjectIndex}">+</button>
+                <button onclick="calculateNeededGrade(${subjectIndex})" class="calc-needed" id="calc-needed-${subjectIndex}">6</button>
+                <button onclick="removeAllVotes(${subjectIndex})" class="remove-all" id="remove-all-${subjectIndex}">X</button>
+            </div>
+            <h3>Qui vedrai i voti e i pesi:</h3>
+            <ul class="media" id="media-${subjectIndex}">
+                <li></li>
+            </ul>
+            <h1 class="mediaf" id="mediaf-${subjectIndex}"></h1>
+            <h3 class="comment" id="comment-${subjectIndex}"></h3>
+            <h5 class="comment" id="to6-${subjectIndex}"></h5>
+        </div>`;
+
+    document.body.appendChild(nuovaMateria);
+
+    for (let k = 0; k < subjects[subjectIndex].voti.length; k++) {
+        var ul = document.getElementById("media-" + subjectIndex);
+        var li = document.createElement("li");
+        li.textContent = subjects[subjectIndex].voti[k] + " (" + subjects[subjectIndex].pesi[k] + "%)";
+        ul.appendChild(li);
+    }
+
+    calc(subjectIndex);
+}
+
 function add(subjectIndex) {
     var voto = parseFloat(document.getElementById("voto-" + subjectIndex).value);
     var peso = parseFloat(document.getElementById("peso-" + subjectIndex).value);
@@ -19,6 +123,8 @@ function add(subjectIndex) {
 
     ul.appendChild(li);
     calc(subjectIndex);
+
+    saveState();
 }
 
 function calc(subjectIndex) {
@@ -64,7 +170,6 @@ function calc(subjectIndex) {
     comment.style.color = `${mediaf.style.backgroundColor}`;
     mediaf.textContent = media.toFixed(2);
 }
-
 function calculateNeededGrade(subjectIndex) {
     var somma_voti = 0;
     var somma_pesi = 0;
@@ -90,8 +195,7 @@ function calculateNeededGrade(subjectIndex) {
     var neededGrade = (6 * (somma_pesi + 100) - somma_voti) / 100;
 
     if (neededGrade > 9) {
-        // Calculate the required grades for two exams
-        var remainingSommaPesi = 200; // Two exams with weight 100 each
+        var remainingSommaPesi = 200; // Due esami con peso 100 ciascuno
         var requiredSum = 6 * (somma_pesi + remainingSommaPesi) - somma_voti;
 
         var grade1 = requiredSum / 2 / 100;
@@ -176,6 +280,7 @@ function materia() {
     document.body.appendChild(nuovaMateria);
     cambio(i);
     i++;
+    saveState();
 }
 
 function removeAllVotes(subjectIndex) {
@@ -196,6 +301,7 @@ function removeAllVotes(subjectIndex) {
     button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
     comment.textContent = "Nessuna media calcolata";
     comment.style.color = `${mediaf.style.backgroundColor}`;
+    saveState();
 }
 
 function cambio(n) {
@@ -230,4 +336,8 @@ function mat() {
     }
 
     i--; // Decrementa l'indice delle materie
-} 
+    saveState();
+}
+
+// Carica lo stato salvato quando la pagina viene caricata
+window.onload = loadState;
