@@ -239,7 +239,7 @@ function menu() {
     aside.classList.toggle("translate");
     
     if (aside.classList.contains("translate")) {
-        main.style.transform = "translateY(-" + ht + ")";
+        main.style.transform = "translateY(-" + ht*2 + ")";
     } else {
         main.style.transform = "translateY(0)";
     }
