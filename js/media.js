@@ -123,7 +123,7 @@ function materia() {
     nuovaMateria.innerHTML = `
         <div class="main">
             <h3>Calcola la tua media !</h3>
-            <select id="voto-${i}">
+            <select id="voto-${i}" class="duo">
                 <option value="10">10</option>
                 <option value="9.75">10-</option>
                 <option value="9.5">9.5</option>
@@ -158,11 +158,11 @@ function materia() {
                 <option value="2.25">2+</option>
                 <option value="2">2</option>
             </select>
-            <input type="text" placeholder="100%" value="100" id="peso-${i}">
+            <input type="text" placeholder="100%" value="100" id="peso-${i}" class="duo">
             <div class="flex">
                 <button onclick="add(${i})" class="add" id="add-${i}">+</button>
                 <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}">6</button>
-                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">X</button>
+                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">x</button>
             </div>
             <h3>Qui vedrai i voti e i pesi:</h3>
             <ul class="media" id="media-${i}">
@@ -231,3 +231,7 @@ function mat() {
 
     i--; // Decrementa l'indice delle materie
 } 
+function menu(){
+    var aside = document.getElementById("aside");
+    aside.classList.toggle("visible");
+}

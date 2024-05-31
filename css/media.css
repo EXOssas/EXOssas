@@ -1,135 +1,105 @@
 body{
-    background-color: rgb(44,44,44);
-    color: cornsilk;
-    font-family:cursive;
-    font-weight: 100;
-    padding: 25px;
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 50px;
-    text-align: center; 
+    display: none;
 }
-.main{
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 25px;
-    margin-right: 25%;
-    margin-left: 50%;
-}
-aside{
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 25px;
-    background-color: rgb(22,22,22);
-    width: 20%;
-    height: 100%;
-    box-shadow: 0px 0px 25px 0px rgb(88,88,88);
-}
-aside input{
-    margin-inline: 0px !important;
-    max-width: 75%;
-}
-aside li{
-    display: flex;
-    gap: 10px;
-    color: cornsilk;
-    margin-block: 25px;
-}
-aside button{
-    color: cornsilk;
-    cursor: pointer;
-    background-color: rgb(33, 33, 33);
-    transition: .3s;
-}
-aside button:hover{
-    background-color: cornsilk;
-    color: rgb(33, 33, 33);
-    transition: .3s;
-}
-ul{
-    margin-top: -30px;
-    margin-bottom: -15px;
-}
-select, input{
-    background-color: rgb(33,33,33);
-    border-radius: 15px;
-    padding: 5px;
-    text-align: center;
-    color: cornsilk;
-    font-size: 25px;
-    border:0;
-    appearance: none;
-    box-shadow: 0px 0px 15px 0px black;
-}
-button{
-    font-weight: 1000;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    padding: 0;
-    color: rgb(44,44,44);
-    border: 0;
-    box-shadow: 0px 0px 15px 0px black;
-    cursor: pointer;
-}
-.scegli{
-    background-color: #008dc0;
-}
-.add{
-    font-size: 43px !important;
-    background-color: green;
-    font-weight: bold;
-    margin-inline: 15px;
-}
-.canc{
-    font-size: 43px !important;
-    background-color: red;
-    font-weight: bold;
-    margin: 15px;
-}
-.remove-all{
-    font-size: 25px !important;
-    background-color: red;
-}
-.calc-needed{
-    font-size: 22px !important;
-    background-color: orange;
-}
-.flex{
-    display: flex;
-    gap:75px;
-    justify-content: center;
-}
-option{
-    font-size: 17px;
-}
-li{
-    list-style: none;
-    margin-block: .5em;
-    margin-left: -2.5em;
-}
-.mediaf{
-    width: 75px;
-    height: 75px;
-    padding: 5px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    margin-inline: 40%;
-}
-.comment{
-    margin-top: -30px;
-}
-.off{
-    display: none !important;
-}
-.remove{
-    padding: 0;
-    background-color: red;
-    width: 30px;
-    height: 30px;
-    margin-left: 1.5em;
+@media only screen and (max-width:800px){
+    body{
+        background-color: rgb(44, 44, 44);
+        color: cornsilk;
+        font-family:verdana,arial;
+        text-align: center;
+    }
+    aside{
+        background-color: rgb(33, 33, 33);
+        margin: -8px;
+        padding-block: 25px;
+        box-shadow: 0px 5px 25px rgb(33, 33, 33);
+        border-bottom: 5px solid rgb(55, 55, 55);
+        display: none;
+    }
+    .visible{
+        display: block !important;
+        margin-bottom: 25px;
+    }
+    aside ul{
+        margin-right: 50px;
+    }
+    .menu{
+        width: 250px;
+        border-radius: 25px;
+        background-color: rgb(66, 66, 66);
+        box-shadow: 0px 0px 50px black;
+    }
+    li{
+        list-style-type: none;
+    }
+    main li{
+        margin-right: 35px;
+    }
+    main{
+        padding-top: 25px;
+    }
+    button{
+        width: 50px;
+        height: 50px;
+        border: 0;
+        border-radius: 50%;
+        color: cornsilk;
+        font-weight: bold;
+        margin: 15px;
+    }
+    input,select{
+        background-color: rgb(66, 66, 66);
+        color: cornsilk;
+        width: 250px;
+        margin-block: 25px;
+        border: 0;
+        padding: 7.5px;
+        border-radius: 25px;
+        font-size: 20px;
+        text-align: center;
+        box-shadow: 0px 0px 25px black;
+        appearance: none;
+    }
+    #materia input{
+        width: 175px;
+    }
+    .scegli{
+        background-color: #008dc0;
+        box-shadow: 0px 0px 25px #008dc0;
+    }
+    .add{
+        background-color: green;
+        font-size: 25px;
+        box-shadow: 0px 0px 25px black;
+    }
+    .canc{
+        background-color: red;
+        font-size: 25px;
+        box-shadow: 0px 0px 25px black;
+    }
+    .calc-needed{
+        background-color: orange;
+        font-size: 25px;
+        box-shadow: 0px 0px 25px black;
+    }
+    .remove-all{
+        background-color: red;
+        font-size: 25px;
+        box-shadow: 0px 0px 25px black;
+    }
+    .mediaf{
+        width: 75px;
+        height: 75px;
+        padding: 5px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        margin-inline: 40%;
+    }
+    .duo{
+        width: 35%;
+        margin-inline: 5px;
+    }
 }
