@@ -1,4 +1,265 @@
-…”;
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Calcola la tua media!</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://cdn-icons-png.freepik.com/512/3735/3735388.png"/>
+    <meta name="keywords" content="calcola media">
+    <meta name="description" content="Calcola la tua media con vari pesi dei voti">
+    <meta name="author" content="Ossas">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #2e3440;
+            color: #d8dee9;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        aside {
+            background-color: #3b4252;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        aside.visible {
+            transform: translateX(0);
+        }
+
+        .menu {
+            background-color: #81a1c1;
+            border: none;
+            padding: 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            color: #2e3440;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu:hover {
+            background-color: #88c0d0;
+        }
+
+        button {
+            border: none;
+            border-radius: 50%;
+            color: #2e3440;
+            font-weight: bold;
+            margin: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add {
+            background-color: #a3be8c;
+        }
+
+        .add:hover {
+            background-color: #b5d19a;
+        }
+
+        .canc, .remove-all {
+            background-color: #bf616a;
+        }
+
+        .canc:hover, .remove-all:hover {
+            background-color: #d08770;
+        }
+
+        .calc-needed {
+            background-color: #ebcb8b;
+        }
+
+        .calc-needed:hover {
+            background-color: #f0d399;
+        }
+
+        input, select {
+            background-color: #4c566a;
+            color: #d8dee9;
+            width: calc(100% - 20px);
+            margin: 15px auto;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .mediaf {
+            width: 75px;
+            height: 75px;
+            padding: 5px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            margin: 20px auto;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        .materia {
+            padding: 20px;
+            margin: 20px;
+            background-color: #3b4252;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .off {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<aside id="aside">
+    <ul id="materia"></ul>
+    <button onclick="materia()" class="add">+</button>
+    <button onclick="mat()" class="canc">-</button>
+</aside>
+<div class="mats">
+    <button class="menu" onclick="menu()">SELEZIONA MATERIE</button>
+</div>
+
+<script>
+    var i = 0;
+    var subjects = [];
+
+    function materia() {
+        var subjectName = prompt("Inserisci il nome della materia:");
+        if (subjectName === null || subjectName.trim() === "") {
+            alert("Il nome della materia non può essere vuoto!");
+            return;
+        }
+
+        subjects.push({
+            name: subjectName,
+            voti: [],
+            pesi: []
+        });
+
+        var ul = document.getElementById("materia");
+        var li = document.createElement("li");
+        li.innerHTML = '<button onclick="cambio(' + i + ')" class="menu">' + subjectName + '</button>';
+        ul.appendChild(li);
+
+        var content = document.createElement("div");
+        content.id = "content-" + i;
+        content.className = "materia off";
+        content.innerHTML = '<h2>' + subjectName + '</h2>' +
+            '<input type="number" id="voto-' + i + '" placeholder="Inserisci voto">' +
+            '<input type="number" id="peso-' + i + '" placeholder="Inserisci peso">' +
+            '<button onclick="add(' + i + ')" class="add">Aggiungi</button>' +
+            '<ul id="media-' + i + '"></ul>' +
+            '<div class="mediaf" id="mediaf-' + i + '"></div>' +
+            '<p id="comment-' + i + '"></p>' +
+            '<button onclick="calculateNeededGrade(' + i + ')" class="calc-needed">Calcola voto necessario</button>' +
+            '<p id="to6-' + i + '"></p>';
+
+        document.body.appendChild(content);
+        i++;
+    }
+
+    function cambio(index) {
+        var elements = document.getElementsByClassName("materia");
+        for (var j = 0; j < elements.length; j++) {
+            elements[j].classList.add("off");
+        }
+        document.getElementById("content-" + index).classList.remove("off");
+    }
+
+    function menu() {
+        var aside = document.getElementById("aside");
+        aside.classList.toggle("visible");
+    }
+
+    function add(subjectIndex) {
+        var voto = parseFloat(document.getElementById("voto-" + subjectIndex).value);
+        var peso = parseFloat(document.getElementById("peso-" + subjectIndex).value);
+
+        if (isNaN(voto) || isNaN(peso)) {
+            alert("Inserisci un voto e un peso validi!");
+            return;
+        }
+
+        if (peso < 1 || peso > 100) {
+            alert("Il peso deve andare da 1 a 100!");
+            return;
+        }
+
+        subjects[subjectIndex].voti.push(voto);
+        subjects[subjectIndex].pesi.push(peso);
+
+        var ul = document.getElementById("media-" + subjectIndex);
+        var li = document.createElement("li");
+        li.textContent = voto + " (" + peso + "%)";
+
+        ul.appendChild(li);
+        calc(subjectIndex);
+    }
+
+    function calc(subjectIndex) {
+        var somma_voti = 0;
+        var somma_pesi = 0;
+        const mediaf = document.getElementById("mediaf-" + subjectIndex);
+        const comment = document.getElementById("comment-" + subjectIndex);
+
+        for (let j = 0; j < subjects[subjectIndex].voti.length; j++) {
+            somma_voti += subjects[subjectIndex].voti[j] * subjects[subjectIndex].pesi[j];
+            somma_pesi += subjects[subjectIndex].pesi[j];
+        }
+
+        if (somma_pesi === 0) {
+            alert("Devi inserire almeno un voto!");
+            mediaf.textContent = "";
+            comment.textContent = "";
+            return;
+        }
+
+        var media = somma_voti / somma_pesi;
+
+        if (media >= 6) {
+            mediaf.style.backgroundColor = "green";
+            if (media > 9) {
+                comment.textContent = "+ 1.000.000 aura !";
+            } else {
+                comment.textContent = "+ 1.000 aura !";
+            }
+        } else if (media < 5) {
+            mediaf.style.backgroundColor = "red";
+            comment.textContent = "Calzuò che mi combini";
+        } else if (media < 6) {
+            mediaf.style.backgroundColor = "orange";
+            comment.textContent = "- 1.000 aura…”;
 }
 
     var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
