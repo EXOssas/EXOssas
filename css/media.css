@@ -11,11 +11,15 @@ aside {
     padding-block: 25px;
     box-shadow: 0px 5px 25px rgb(33, 33, 33);
     border-bottom: 5px solid rgb(55, 55, 55);
-    display: none;
+    visible:hidden;
+    position:absolute;
+    scale:0.05;
 }
 
 .visible {
-    display: block !important;
+    visibility:visible !important;
+    position:static;
+    scale:1;
     margin-bottom: 25px;
 }
 
