@@ -233,9 +233,9 @@ function mat() {
 } 
 function menu(){
     var aside = document.getElementById("aside");
-    var main = document.querySelector("main");
-    var ht = asideElement.offsetHeight + "px";
+    //var main = document.querySelector("main");
+    //var ht = asideElement.offsetHeight + "px";
     aside.classList.toggle("translate");
-    main.style.translateY = -ht;
-    main.style.transition = ".3s";
+    /*main.style.translateY = -ht;
+    main.style.transition = ".3s";*/
 }
