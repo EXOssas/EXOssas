@@ -236,6 +236,6 @@ function menu(){
     var main = document.querySelector("main");
     var ht = asideElement.offsetHeight;
     aside.classList.toggle("translate");
-    main.style.translate = ht;
+    main.style.translateY = -ht;
     main.style.transition = ".3s";
 }
