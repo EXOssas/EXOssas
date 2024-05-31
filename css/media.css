@@ -11,7 +11,7 @@ aside {
     padding-block: 25px;
     box-shadow: 0px 5px 25px rgb(33, 33, 33);
     border-bottom: 5px solid rgb(55, 55, 55);
-    display:none;
+    display:block;
 }
 
 .off {
