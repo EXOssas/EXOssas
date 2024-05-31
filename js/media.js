@@ -233,5 +233,5 @@ function mat() {
 } 
 function menu(){
     var aside = document.getElementById("aside");
-    aside.classList.toggle("broken");
+    aside.classList.toggle("off");
 }
