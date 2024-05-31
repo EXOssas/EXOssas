@@ -122,7 +122,7 @@ function materia() {
 
     nuovaMateria.innerHTML = `
         <div class="main">
-            <h3>Calcola la tua media !</h3>
+            <h4>Calcola la tua media !</h4>
             <select id="voto-${i}" class="duo">
                 <option value="10">10</option>
                 <option value="9.75">10-</option>
@@ -160,11 +160,11 @@ function materia() {
             </select>
             <input type="text" placeholder="100%" value="100" id="peso-${i}" class="duo">
             <div class="flex">
-                <button onclick="add(${i})" class="add" id="add-${i}">+</button>
-                <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}">6</button>
-                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}">x</button>
+                <button onclick="add(${i})" class="add" id="add-${i}" title="Aggiungi un voto"><i class="fa-solid fa-plus"></i></button>
+                <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}" title="Calcola che voti devi prendere per avere  la media del 6">6</button>
+                <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}" title="Rimuovi tutti i voti di questa materia"><i class="fa-solid fa-x"></i></button>
             </div>
-            <h3>Qui vedrai i voti e i pesi:</h3>
+            <h4>Voti e relativi pesi:</h4>
             <ul class="media" id="media-${i}">
                 <li></li>
             </ul>
@@ -230,23 +230,19 @@ function mat() {
     }
 
     i--; // Decrementa l'indice delle materie
-} 
+}
 function menu() {
     var aside = document.getElementById("aside");
-    var main = document.querySelector("main");
-    var btn = document.querySelector(".menu");
-    var ht = aside.offsetHeight + "px";
-    
+    var body = document.getElementById("body");
+    var ht = aside.offsetHeight;
+
     aside.classList.toggle("translate");
     
     if (aside.classList.contains("translate")) {
-        main.style.transform = "translateY(-" + ht*2 + ")";
-        btn.style.transform = "translateY(-" + ht*2 + ")";
+        body.style.transform = `translateY(-${ht}px)`;
+        body.style.transition = `.4s`;
     } else {
-        main.style.transform = "translateY(0)";
-        btn.style.transform = "translateY(0)";
-    }
-    
-    main.style.transition = ".3s";
-    btn.style.transition = ".3s";
+        body.style.transform = `translateY(0)`;
+        body.style.transition = `.4s`;
+    } 
 }

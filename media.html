@@ -12,18 +12,17 @@
             integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/media.css">
-    <link rel="stylesheet" href="css/media-media.css">
     <script src="js/media.js"></script>
 </head>
-<body>
-    <!-- aside -->
-    <aside id="aside">
-        <ul id="materia"></ul>
-        <button onclick="materia()" class="add">+</button>
-        <button onclick="mat()" class="canc">-</button>
-    </aside>
-    <div class="mats">
-        <button class="menu" onclick="menu()">SELEZIONA MATERIE</button>
+<!-- aside -->
+<aside id="aside">
+    <ul id="materia"></ul>
+    <button onclick="materia()" class="add"><i class="fa-solid fa-plus"></i></button>
+    <button onclick="mat()" class="canc">-</button>
+</aside>
+<body id="body">
+    <div>
+        <button class="menu" id="menu" onclick="menu()">SELEZIONA MATERIE <i class="fa-solid fa-bars"></i></button>
     </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ body {
     color: cornsilk;
     font-family: verdana, arial;
     text-align: center;
+    text-transform: uppercase;
 }
 
 aside {
@@ -17,6 +18,10 @@ aside {
     transition:.3s;
 }
 
+h4{
+    border-bottom: 1px dashed cornsilk;
+}
+
 .off {
     display:none !important;
 }
@@ -29,7 +34,12 @@ aside ul {
     width: 250px;
     border-radius: 25px;
     background-color: rgb(66, 66, 66);
+    border: 2px solid #008dc0;
     box-shadow: 0px 0px 50px black;
+}
+
+.menu:hover{
+    background-color: #008dc0;
 }
 
 li {
@@ -119,6 +129,7 @@ input, select {
     width: 35%;
     margin-inline: 5px;
 }
+
 .translate{
     transform:translateY(-100%);
     transition:.3s;
