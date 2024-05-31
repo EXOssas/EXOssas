@@ -241,17 +241,12 @@ function menu() {
     
     if (aside.classList.contains("translate")) {
         main.style.transform = "translateY(-" + ht*2 + ")";
-    } else {
-        main.style.transform = "translateY(0)";
-    }
-    
-    main.style.transition = ".3s";
-    
-    if (btn.classList.contains("translate")) {
         btn.style.transform = "translateY(-" + ht*2 + ")";
     } else {
+        main.style.transform = "translateY(0)";
         btn.style.transform = "translateY(0)";
     }
     
+    main.style.transition = ".3s";
     btn.style.transition = ".3s";
 }
