@@ -231,11 +231,18 @@ function mat() {
 
     i--; // Decrementa l'indice delle materie
 } 
-function menu(){
+function menu() {
     var aside = document.getElementById("aside");
-    //var main = document.querySelector("main");
-    //var ht = asideElement.offsetHeight + "px";
+    var main = document.querySelector("main");
+    var ht = aside.offsetHeight + "px";
+    
     aside.classList.toggle("translate");
-    /*main.style.translateY = -ht;
-    main.style.transition = ".3s";*/
+    
+    if (aside.classList.contains("translate")) {
+        main.style.transform = "translateY(-" + ht + ")";
+    } else {
+        main.style.transform = "translateY(0)";
+    }
+    
+    main.style.transition = ".3s";
 }
