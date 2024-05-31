@@ -16,7 +16,7 @@ aside {
     scale:0.05;
 }
 
-.visible {
+.broken {
     visibility:visible !important;
     position:static;
     scale:1;
