@@ -233,5 +233,5 @@ function mat() {
 } 
 function menu(){
     var aside = document.getElementById("aside");
-    aside.classList.toggle("off");
+    aside.classList.toggle("translate");
 }
