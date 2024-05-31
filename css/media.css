@@ -42,6 +42,7 @@ body{
         color: cornsilk;
         font-weight: bold;
         margin: 15px;
+        text-align:center;
     }
     input,select{
         background-color: rgb(66, 66, 66);
