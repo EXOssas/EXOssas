@@ -234,7 +234,7 @@ function mat() {
 function menu() {
     var aside = document.getElementById("aside");
     var main = document.querySelector("main");
-    var btn = document.querySelector("#menu");
+    var btn = document.querySelector(".menu");
     var ht = aside.offsetHeight + "px";
     
     aside.classList.toggle("translate");
