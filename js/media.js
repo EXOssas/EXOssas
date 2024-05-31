@@ -234,6 +234,7 @@ function mat() {
 function menu() {
     var aside = document.getElementById("aside");
     var main = document.querySelector("main");
+    var btn = document.querySelector("#menu");
     var ht = aside.offsetHeight + "px";
     
     aside.classList.toggle("translate");
@@ -245,4 +246,12 @@ function menu() {
     }
     
     main.style.transition = ".3s";
+    
+    if (btn.classList.contains("translate")) {
+        btn.style.transform = "translateY(-" + ht*2 + ")";
+    } else {
+        btn.style.transform = "translateY(0)";
+    }
+    
+    btn.style.transition = ".3s";
 }
