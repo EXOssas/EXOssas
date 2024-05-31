@@ -98,8 +98,3 @@ body{
         width: 35%;
         margin-inline: 5px;
     }
-@media only screen and (min-width:1200px){
-    body{
-        display:none;
-    }
-}
