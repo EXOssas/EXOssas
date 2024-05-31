@@ -13,6 +13,8 @@ aside {
     border-bottom: 5px solid rgb(55, 55, 55);
     display:block;
     margin-bottom: 25px;
+    transform:translateY(0px);
+    transition:.3s;
 }
 
 .off {
@@ -116,4 +118,8 @@ input, select {
 .duo {
     width: 35%;
     margin-inline: 5px;
+}
+.translate{
+    transform:translateY(100%);
+    transition:.3s;
 }
