@@ -120,6 +120,6 @@ input, select {
     margin-inline: 5px;
 }
 .translate{
-    transform:translateY(100%);
+    transform:translateY(-100%);
     transition:.3s;
 }
