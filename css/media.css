@@ -1,8 +1,4 @@
 body{
-    display: none;
-}
-@media only screen and (max-width:800px){
-    body{
         background-color: rgb(44, 44, 44);
         color: cornsilk;
         font-family:verdana,arial;
@@ -101,5 +97,9 @@ body{
     .duo{
         width: 35%;
         margin-inline: 5px;
+    }
+@media only screen and (min-width:1200px){
+    body{
+        display:none;
     }
 }
