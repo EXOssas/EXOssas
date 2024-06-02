@@ -13,11 +13,32 @@ function add(subjectIndex) {
     subjects[subjectIndex].voti.push(voto);
     subjects[subjectIndex].pesi.push(peso);
 
-    var ul = document.getElementById("media-" + subjectIndex);
-    var li = document.createElement("li");
-    li.textContent = voto + " (" + peso + "%)";
+    
+    var tbody = document.getElementById("media-" + subjectIndex);
+    console.log(tbody);
+    var tr = document.createElement("tr");
+    var td = document.createElement("td");
+    var td2 = document.createElement("td");
+    td.textContent = voto;
+    td2.textContent = peso + "%";
 
-    ul.appendChild(li);
+    tbody.appendChild(tr);
+    tr.appendChild(td);
+    tr.appendChild(td2);
+    
+    if(voto<5){
+        td.style.backgroundColor = "rgba(238, 75, 43, .7)";
+        td2.style.backgroundColor = "rgba(238, 75, 43, .7)";
+    }
+    else if(voto<6){
+        td.style.backgroundColor = "rgba(255, 165, 0, .7)";
+        td2.style.backgroundColor = "rgba(255, 165, 0, .7)";
+    }
+    else{
+        td.style.backgroundColor = "rgba(34,139,34,.7)";
+        td2.style.backgroundColor = "rgba(34,139,34,.7)";
+    }
+
     calc(subjectIndex);
 }
 
@@ -43,17 +64,10 @@ function calc(subjectIndex) {
 
     if (media >= 6) {
         mediaf.style.backgroundColor = "green";
-        if (media > 9) {
-            comment.textContent = "+ 1.000.000 aura !";
-        } else {
-            comment.textContent = "+ 1.000 aura !";
-        }
     } else if (media < 5) {
         mediaf.style.backgroundColor = "red";
-        comment.textContent = "Calzuò che mi combini";
     } else if (media < 6) {
         mediaf.style.backgroundColor = "orange";
-        comment.textContent = "- 1.000 aura...";
     }
 
     var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
@@ -122,52 +136,60 @@ function materia() {
 
     nuovaMateria.innerHTML = `
         <div class="main">
-            <h4>Calcola la tua media !</h4>
-            <select id="voto-${i}" class="duo">
-                <option value="10">10</option>
-                <option value="9.75">10-</option>
-                <option value="9.5">9.5</option>
-                <option value="9.25">9+</option>
-                <option value="9">9</option>
-                <option value="8.75">9-</option>
-                <option value="8.5">8.5</option>
-                <option value="8.25">8+</option>
-                <option value="8">8</option>
-                <option value="7.75">8-</option>
-                <option value="7.5" selected>7.5</option>
-                <option value="7.25">7+</option>
-                <option value="7">7</option>
-                <option value="6.75">7-</option>
-                <option value="6.5">6.5</option>
-                <option value="6.25">6+</option>
-                <option value="6">6</option>
-                <option value="5.75">6-</option>
-                <option value="5.5">5.5</option>
-                <option value="5.25">5+</option>
-                <option value="5">5</option>
-                <option value="4.75">5-</option>
-                <option value="4.5">4.5</option>
-                <option value="4.25">4+</option>
-                <option value="4">4</option>
-                <option value="3.75">4-</option>
-                <option value="3.5">3.5</option>
-                <option value="3.25">3+</option>
-                <option value="3">3</option>
-                <option value="2.75">3-</option>
-                <option value="2.5">2.5</option>
-                <option value="2.25">2+</option>
-                <option value="2">2</option>
-            </select>
-            <input type="text" placeholder="100%" value="100" id="peso-${i}" class="duo">
+            <div class="grid">
+                <label for="duo">Scegli il voto</label>
+                <label for="duo">Scegli il peso</label>
+                <select id="voto-${i}" class="duo">
+                    <option value="10">10</option>
+                    <option value="9.75">10-</option>
+                    <option value="9.5">9.5</option>
+                    <option value="9.25">9+</option>
+                    <option value="9">9</option>
+                    <option value="8.75">9-</option>
+                    <option value="8.5">8.5</option>
+                    <option value="8.25">8+</option>
+                    <option value="8">8</option>
+                    <option value="7.75">8-</option>
+                    <option value="7.5" selected>7.5</option>
+                    <option value="7.25">7+</option>
+                    <option value="7">7</option>
+                    <option value="6.75">7-</option>
+                    <option value="6.5">6.5</option>
+                    <option value="6.25">6+</option>
+                    <option value="6">6</option>
+                    <option value="5.75">6-</option>
+                    <option value="5.5">5.5</option>
+                    <option value="5.25">5+</option>
+                    <option value="5">5</option>
+                    <option value="4.75">5-</option>
+                    <option value="4.5">4.5</option>
+                    <option value="4.25">4+</option>
+                    <option value="4">4</option>
+                    <option value="3.75">4-</option>
+                    <option value="3.5">3.5</option>
+                    <option value="3.25">3+</option>
+                    <option value="3">3</option>
+                    <option value="2.75">3-</option>
+                    <option value="2.5">2.5</option>
+                    <option value="2.25">2+</option>
+                    <option value="2">2</option>
+                </select>
+                <input type="text" placeholder="100%" value="100" id="peso-${i}" class="duo">
+            </div>
             <div class="flex">
                 <button onclick="add(${i})" class="add" id="add-${i}" title="Aggiungi un voto"><i class="fa-solid fa-plus"></i></button>
                 <button onclick="calculateNeededGrade(${i})" class="calc-needed" id="calc-needed-${i}" title="Calcola che voti devi prendere per avere  la media del 6">6</button>
                 <button onclick="removeAllVotes(${i})" class="remove-all" id="remove-all-${i}" title="Rimuovi tutti i voti di questa materia"><i class="fa-solid fa-x"></i></button>
             </div>
-            <h4>Voti e relativi pesi:</h4>
-            <ul class="media" id="media-${i}">
-                <li></li>
-            </ul>
+            <table class="media"> 
+                <thead>
+                    <tr>
+                        <th>Voti</th>
+                        <th>Pesi</th>
+                    </tr>
+                </thead>
+            <tbody id="media-${i}"></tbody>
+            </table>
             <h1 class="mediaf" id="mediaf-${i}"></h1>
             <h3 class="comment" id="comment-${i}"></h3>
             <h5 class="comment" id="to6-${i}"></h5>
@@ -182,20 +204,18 @@ function removeAllVotes(subjectIndex) {
     subjects[subjectIndex].voti = [];
     subjects[subjectIndex].pesi = [];
     const mediaf = document.getElementById("mediaf-" + subjectIndex);
-    const comment = document.getElementById("comment-" + subjectIndex);
+    var to6 = document.getElementById("to6-" + subjectIndex);
     var button = document.querySelector("#materia button[onclick='cambio(" + subjectIndex + ")']");
-    var ul = document.getElementById("media-" + subjectIndex);
-    while (ul.firstChild) {
-        ul.removeChild(ul.firstChild);
-    }
+    var tbody = document.getElementById("media-" + subjectIndex);
+    tbody.innerHTML = '';
     mediaf.style.backgroundColor = "#008dc0";
     mediaf.style.boxShadow = `0 0 25px 0 ${mediaf.style.backgroundColor}`;
     mediaf.textContent = "-";
     button.textContent = "-"; 
     button.style.backgroundColor = `${mediaf.style.backgroundColor}`;
     button.style.boxShadow = `0 0 10px 0 ${mediaf.style.backgroundColor}`;
-    comment.textContent = "Nessuna media calcolata";
-    comment.style.color = `${mediaf.style.backgroundColor}`;
+    to6.textContent = "Nessuna media calcolata";
+    to6.style.color = `${mediaf.style.backgroundColor}`;
 }
 
 function cambio(n) {
