@@ -170,3 +170,14 @@ tbody td:last-child{
     text-align: center;
     align-items: center;
 }
+@media screen and (min-width:800px){
+    body{
+        margin-inline:35%;
+    }
+    aside{
+        margin-inline: -116.5% !important;
+    }
+    .flex{
+        margin-left: 8px;
+    }
+}
