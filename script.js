@@ -15,13 +15,16 @@ function add() {
 
     var mediaTot = document.getElementById("media-tot");
     mediaTot.textContent = (media/100).toFixed(2);
+    var mediaColor;
     if (media < 5) {
-        mediaTot.style.backgroundColor = "rgba(238, 75, 43,.8)";
+        mediaColor = "rgba(238, 75, 43,.8)";
     } else if (media < 6) {
-        mediaTot.style.backgroundColor = "rgba(255,165,0,.8)";
+        mediaColor = "rgba(255,165,0,.8)";
     } else {
-        mediaTot.style.backgroundColor = "rgba(0,128,0,.8)";
+        mediaColor = "rgba(0,128,0,.8)";
     }
+    mediaTot.style.backgroundColor = mediaColor;
+    mediaTot.style.boxShadow = `0 0 10px ${mediaColor}`;
 
     var votoText = voto;
 
@@ -54,6 +57,7 @@ function add() {
 
     i++; // Incrementa il numero di voti
 }
+
 function setDayImage() {
     var today = new Date();
     var dayOfWeek = today.getDay(); // Ottiene il giorno della settimana (0 per Domenica, 1 per Lunedì, ..., 6 per Sabato)
@@ -62,25 +66,25 @@ function setDayImage() {
 
     switch (dayOfWeek) {
         case 1:
-        //    imageElement.src = "monday.jpg"; // Immagine per Domenica
+            // imageElement.src = "monday.jpg"; // Immagine per Lunedì
             break;
         case 2:
-        //    imageElement.src = "tuesday.jpg"; // Immagine per Lunedì
+            // imageElement.src = "tuesday.jpg"; // Immagine per Martedì
             break;
         case 3:
-        //    imageElement.src = "wednesday.jpg"; // Immagine per Martedì
+            // imageElement.src = "wednesday.jpg"; // Immagine per Mercoledì
             break;
         case 4:
-        //    imageElement.src = "thursday.jpg"; // Immagine per Mercoledì
+            // imageElement.src = "thursday.jpg"; // Immagine per Giovedì
             break;
         case 5:
-        //    imageElement.src = "friday.jpg"; // Immagine per Giovedì
+            // imageElement.src = "friday.jpg"; // Immagine per Venerdì
             break;
         case 6:
-        //    imageElement.src = "saturday.jpg"; // Immagine per Venerdì
+            // imageElement.src = "saturday.jpg"; // Immagine per Sabato
             break;
         default:
-        //    imageElement.src = "default.jpg"; //default
+            // imageElement.src = "default.jpg"; // Immagine di default
             break;
     }
     console.log(dayOfWeek);
@@ -92,26 +96,26 @@ window.onload = function() {
 };
 
 function verifica() {
-            // Ottieni i valori degli input
-            var nomeProva = document.getElementById("nomeProva").value;
-            var dataProva = document.getElementById("dataProva").value;
+    // Ottieni i valori degli input
+    var nomeProva = document.getElementById("nomeProva").value;
+    var dataProva = document.getElementById("dataProva").value;
 
-            if (nomeProva === "" || dataProva === "") {
-                alert("Scrivi qualcosa disabile");
-                // Se i campi sono vuoti, esci dalla funzione
-                return;
-            }
-
-            // Crea un elemento div per rappresentare l'evento nel calendario
-            var evento = document.createElement("div");
-            evento.classList.add("event");
-            evento.textContent = nomeProva + " <hr> " + dataProva;
-
-            // Aggiungi l'evento al calendario
-            var calendario = document.getElementById("calendar");
-            calendario.appendChild(evento);
-
-            // Pulisci i campi di input
-            document.getElementById("nomeProva").value = "";
-            document.getElementById("dataProva").value = "";
+    if (nomeProva === "" || dataProva === "") {
+        alert("Scrivi qualcosa disabile");
+        // Se i campi sono vuoti, esci dalla funzione
+        return;
     }
+
+    // Crea un elemento div per rappresentare l'evento nel calendario
+    var evento = document.createElement("div");
+    evento.classList.add("event");
+    evento.textContent = nomeProva + " <hr> " + dataProva;
+
+    // Aggiungi l'evento al calendario
+    var calendario = document.getElementById("calendar");
+    calendario.appendChild(evento);
+
+    // Pulisci i campi di input
+    document.getElementById("nomeProva").value = "";
+    document.getElementById("dataProva").value = "";
+}
