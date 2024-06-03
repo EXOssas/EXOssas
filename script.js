@@ -111,6 +111,19 @@ function verifica() {
     evento.classList.add("event");
     evento.innerHTML = `<h4>${nomeProva} <hr> ${dataProva}</h4>`;
 
+    // Crea il pulsante di eliminazione
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Elimina";
+    deleteButton.classList.add("delete-button");
+
+    // Aggiungi il pulsante di eliminazione all'evento
+    evento.appendChild(deleteButton);
+
+    // Aggiungi il gestore di eventi per il pulsante di eliminazione
+    deleteButton.addEventListener("click", function() {
+        evento.remove();
+    });
+
     // Aggiungi l'evento al calendario
     var calendario = document.getElementById("calendar");
     calendario.appendChild(evento);
