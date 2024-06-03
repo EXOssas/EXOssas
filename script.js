@@ -41,7 +41,7 @@ function add() {
     votoElement.dataset.peso = peso;
 
     var container = document.getElementById("grade-container");
-    container.appendChild(votoElement);
+    container.insertBefore(votoElement, container.firstChild);
 
     // Imposta il colore del voto in base al suo valore
     if (voto < 5) {
