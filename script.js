@@ -132,3 +132,7 @@ var media = 0;
             document.getElementById("nomeProva").value = "";
             document.getElementById("dataProva").value = "";
         }
+        
+        function mats(){
+                alert("Visualizza le materie in base al giorno della settimana");
+        }
