@@ -36,6 +36,10 @@ var media = 0;
                 votoText = votoText + 0.25;
                 votoText += "-";
             }
+            else if(voto % 1 === 0.5){
+                votoText = votoText - 0.5;
+                votoText += "½";
+            }
 
             var votoElement = document.createElement("div");
             votoElement.textContent = votoText;
