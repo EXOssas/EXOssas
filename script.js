@@ -97,6 +97,7 @@ function verifica() {
             var dataProva = document.getElementById("dataProva").value;
 
             if (nomeProva === "" || dataProva === "") {
+                alert("Scrivi qualcosa disabile");
                 // Se i campi sono vuoti, esci dalla funzione
                 return;
             }
