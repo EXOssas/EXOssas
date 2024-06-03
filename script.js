@@ -109,7 +109,7 @@ function verifica() {
     // Crea un elemento div per rappresentare l'evento nel calendario
     var evento = document.createElement("div");
     evento.classList.add("event");
-    evento.textContent = nomeProva + " <hr> " + dataProva;
+    evento.innerHTML = `<h4>${nomeProva} <hr> ${dataProva}</h4>`;
 
     // Aggiungi l'evento al calendario
     var calendario = document.getElementById("calendar");
