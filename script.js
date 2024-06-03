@@ -49,7 +49,7 @@ function add() {
     } else if (voto < 6) {
         votoElement.style.backgroundColor = "rgba(255,165,0,.8)";
     } else {
-        votoElement.style.backgroundColor = "rgba(0,128,0,.8)";
+        votoElement.style.textShadow = "0px 0px 25px rgba(0,128,0,.8)";
     }
 
     i++; // Incrementa il numero di voti
