@@ -92,28 +92,25 @@ window.onload = function() {
 };
 
 function verifica() {
-    // Chiedi all'utente di inserire il nome della prova
-    var nomeProva = prompt("Inserisci il nome della prova:");
+            // Ottieni i valori degli input
+            var nomeProva = document.getElementById("nomeProva").value;
+            var dataProva = document.getElementById("dataProva").value;
 
-    if (nomeProva === null || nomeProva === "") {
-        // Se l'utente ha cliccato "Annulla" o non ha inserito nulla, esci dalla funzione
-        return;
+            if (nomeProva === "" || dataProva === "") {
+                // Se i campi sono vuoti, esci dalla funzione
+                return;
+            }
+
+            // Crea un elemento div per rappresentare l'evento nel calendario
+            var evento = document.createElement("div");
+            evento.classList.add("event");
+            evento.textContent = nomeProva + " - " + dataProva;
+
+            // Aggiungi l'evento al calendario
+            var calendario = document.getElementById("calendar");
+            calendario.appendChild(evento);
+
+            // Pulisci i campi di input
+            document.getElementById("nomeProva").value = "";
+            document.getElementById("dataProva").value = "";
     }
-
-    // Chiedi all'utente di inserire la data della prova
-    var dataProva = prompt("Inserisci la data della prova (formato: AAAA-MM-GG):");
-
-    if (dataProva === null || dataProva === "") {
-        // Se l'utente ha cliccato "Annulla" o non ha inserito nulla, esci dalla funzione
-        return;
-    }
-
-    // Crea un elemento div per rappresentare l'evento nel calendario
-    var evento = document.createElement("div");
-    evento.classList.add("event");
-    evento.textContent = nomeProva + " - " + dataProva;
-
-    // Aggiungi l'evento al calendario
-    var calendario = document.getElementById("calendar");
-    calendario.appendChild(evento);
-}
