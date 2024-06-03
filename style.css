@@ -110,7 +110,7 @@ button.add::before{
     font-size: 30px;
     color: cornsilk;
 }
-.top{
+#media-tot{
     height: 100px;
     width: 100px;
     line-height: 100px;
